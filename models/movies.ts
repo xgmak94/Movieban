@@ -3,6 +3,7 @@ export interface Movie {
   movie_id?: number;
   name: string;
   status: List;
+  rating?: number;
 }
 
 export enum List {

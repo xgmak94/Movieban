@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 
 import Card from '../../components/Card';
-import InputField from '../../components/InputField';
+import InputField from '../../components/Input/Input';
 import { Movie, List } from '../../models/movies';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 
@@ -13,57 +13,29 @@ export default function Board() {
   const [watching, setWatching] = useState<Movie[]>([]);
   const [watched, setWatched] = useState<Movie[]>([]);
 
+  const lists = {
+    [List.Backlog]: { list: backlog, setList: setBacklog },
+    [List.Watching]: { list: watching, setList: setWatching },
+    [List.Watched]: { list: watched, setList: setWatched },
+  };
+
+  // not sure if this actually animates
   const [backlogParent] = useAutoAnimate<HTMLUListElement>();
   const [watchingParent] = useAutoAnimate<HTMLUListElement>();
   const [watchedParent] = useAutoAnimate<HTMLUListElement>();
 
-  function addToList(targetList: List) {
-    if (targetList == List.Backlog) {
-      addBacklog();
-    } else if (targetList == List.Watching) {
-      addWatching();
-    } else if (targetList == List.Watched) {
-      addWatched();
-    }
-  }
+  function addToLists(targetList: List) {
+    console.log(lists[targetList]);
+    if (!name) return;
+    const newMovie: Movie = {
+      id: name,
+      name,
+      status: List.Backlog,
+      rating: undefined,
+    };
 
-  function addBacklog() {
-    if (name) {
-      const newMovie: Movie = {
-        id: name,
-        name,
-        status: List.Backlog,
-      };
-
-      setBacklog((prev) => [newMovie, ...prev]);
-      setName('');
-    }
-  }
-
-  function addWatching() {
-    if (name) {
-      const newMovie: Movie = {
-        id: name,
-        name,
-        status: List.Watching,
-      };
-
-      setWatching((prev) => [newMovie, ...prev]);
-      setName('');
-    }
-  }
-
-  function addWatched() {
-    if (name) {
-      const newMovie: Movie = {
-        id: name,
-        name,
-        status: List.Watching,
-      };
-
-      setWatched((prev) => [newMovie, ...prev]);
-      setName('');
-    }
+    lists[targetList].setList((prev) => [newMovie, ...prev]);
+    setName('');
   }
 
   function handleOnDragEnd(result: DropResult) {
@@ -101,7 +73,7 @@ export default function Board() {
       <div className="flex flex-col p-3">
         <div className="flex flex-col justify-center">
           <div className="text-4xl">Movieban</div>
-          <InputField name={name} setName={setName} addNew={addToList} />
+          <InputField name={name} setName={setName} addToLists={addToLists} />
         </div>
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">

@@ -2,7 +2,7 @@ import type { AppProps } from 'next/app';
 
 import '../styles/globals.css';
 
-import Navbar from '../components/Navbar';
+import Navbar from '../components/Nav/Nav';
 
 import { ThemeProvider } from 'next-themes';
 import Head from 'next/head';

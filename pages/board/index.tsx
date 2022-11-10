@@ -18,7 +18,6 @@ export default function Board() {
   const [watchedParent] = useAutoAnimate<HTMLUListElement>();
 
   function addToList(targetList: List) {
-    console.log(targetList, typeof targetList);
     if (targetList == List.Backlog) {
       addBacklog();
     } else if (targetList == List.Watching) {
@@ -106,12 +105,12 @@ export default function Board() {
         </div>
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
-            <div className="flex flex-col h-full text-center bg-gray-400 p-3 rounded-lg">
+            <div className="flex flex-col overflow-auto text-center bg-gray-400 p-3 rounded-lg">
               <div className="text-2xl font-semibold">Backlog</div>
               <Droppable droppableId="Backlog">
                 {(provided) => (
                   <div {...provided.droppableProps} ref={provided.innerRef}>
-                    <ul className="m-3" ref={backlogParent}>
+                    <ul className="m-3 h-[80vh]" ref={backlogParent}>
                       {backlog.map((movie, index) => {
                         return (
                           <Draggable key={movie.id} draggableId={movie.id} index={index}>
@@ -138,12 +137,12 @@ export default function Board() {
                 )}
               </Droppable>
             </div>
-            <div className="flex flex-col h-full text-center bg-gray-400 p-3 rounded-lg">
+            <div className="flex flex-col text-center bg-gray-400 p-3 rounded-lg">
               <div className="text-2xl font-semibold">Watching</div>
               <Droppable droppableId="Watching">
                 {(provided) => (
                   <div {...provided.droppableProps} ref={provided.innerRef}>
-                    <ul className="m-3" ref={watchingParent}>
+                    <ul className="m-3 h-[80vh]" ref={watchingParent}>
                       {watching.map((movie, index) => {
                         return (
                           <Draggable key={movie.id} draggableId={movie.id} index={index}>
@@ -170,12 +169,12 @@ export default function Board() {
                 )}
               </Droppable>
             </div>
-            <div className="flex flex-col h-full text-center bg-gray-400 p-3 rounded-lg">
+            <div className="flex flex-col text-center bg-gray-400 p-3 rounded-lg">
               <div className="text-2xl font-semibold">Watched</div>
               <Droppable droppableId="Watched">
                 {(provided) => (
                   <div {...provided.droppableProps} ref={provided.innerRef}>
-                    <ul className="m-3" ref={watchedParent}>
+                    <ul className="m-3 h-[80vh]" ref={watchedParent}>
                       {watched.map((movie, index) => {
                         return (
                           <Draggable key={movie.id} draggableId={movie.id} index={index}>

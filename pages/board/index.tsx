@@ -1,10 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { useAutoAnimate } from '@formkit/auto-animate/react';
-
-import Card from '../../components/Card';
-import InputField from '../../components/Input/Input';
+import Input from '../../components/Input/Input';
 import { Movie, List } from '../../models/movies';
-import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import Column from '../../components/Column/Column';
 
 export default function Board() {
   const [name, setName] = useState<string>('');
@@ -13,25 +11,22 @@ export default function Board() {
   const [watching, setWatching] = useState<Movie[]>([]);
   const [watched, setWatched] = useState<Movie[]>([]);
 
-  const lists = {
-    [List.Backlog]: { list: backlog, setList: setBacklog },
-    [List.Watching]: { list: watching, setList: setWatching },
-    [List.Watched]: { list: watched, setList: setWatched },
-  };
-
-  // not sure if this actually animates
-  const [backlogParent] = useAutoAnimate<HTMLUListElement>();
-  const [watchingParent] = useAutoAnimate<HTMLUListElement>();
-  const [watchedParent] = useAutoAnimate<HTMLUListElement>();
+  const columns = [
+    { columnData: backlog, setColumnData: setBacklog, columnName: 'Backlog' },
+    { columnData: watching, setColumnData: setWatching, columnName: 'Watching' },
+    { columnData: watched, setColumnData: setWatched, columnName: 'Watched' },
+  ];
 
   function addToLists(targetList: List) {
-    console.log(lists[targetList]);
     if (!name) return;
     const newMovie: Movie = {
       title: name,
     };
 
-    lists[targetList].setList((prev) => [newMovie, ...prev]);
+    columns
+      .find((element) => element.columnName === targetList)
+      ?.setColumnData((prev) => [newMovie, ...prev]);
+
     setName('');
   }
 
@@ -68,105 +63,17 @@ export default function Board() {
   return (
     <>
       <div className="flex flex-col p-3">
-        <InputField name={name} setName={setName} addToLists={addToLists} />
+        <Input name={name} setName={setName} addToLists={addToLists} />
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
-            <div className="flex flex-col overflow-auto text-center bg-gray-400 p-3 rounded-lg">
-              <div className="text-2xl font-semibold">Backlog</div>
-              <Droppable droppableId="Backlog">
-                {(provided) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
-                    <ul className="m-3 h-[80vh]" ref={backlogParent}>
-                      {backlog.map((movie, index) => {
-                        return (
-                          <Draggable key={movie.title} draggableId={movie.title} index={index}>
-                            {(provided) => (
-                              <li
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                <Card
-                                  movie={movie}
-                                  index={index}
-                                  list={backlog}
-                                  setList={setBacklog}
-                                />
-                              </li>
-                            )}
-                          </Draggable>
-                        );
-                      })}
-                      {provided.placeholder}
-                    </ul>
-                  </div>
-                )}
-              </Droppable>
-            </div>
-            <div className="flex flex-col text-center bg-gray-400 p-3 rounded-lg">
-              <div className="text-2xl font-semibold">Watching</div>
-              <Droppable droppableId="Watching">
-                {(provided) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
-                    <ul className="m-3 h-[80vh]" ref={watchingParent}>
-                      {watching.map((movie, index) => {
-                        return (
-                          <Draggable key={movie.title} draggableId={movie.title} index={index}>
-                            {(provided) => (
-                              <li
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                <Card
-                                  movie={movie}
-                                  index={index}
-                                  list={watching}
-                                  setList={setWatching}
-                                />
-                              </li>
-                            )}
-                          </Draggable>
-                        );
-                      })}
-                      {provided.placeholder}
-                    </ul>
-                  </div>
-                )}
-              </Droppable>
-            </div>
-            <div className="flex flex-col text-center bg-gray-400 p-3 rounded-lg">
-              <div className="text-2xl font-semibold">Watched</div>
-              <Droppable droppableId="Watched">
-                {(provided) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
-                    <ul className="m-3 h-[80vh]" ref={watchedParent}>
-                      {watched.map((movie, index) => {
-                        return (
-                          <Draggable key={movie.title} draggableId={movie.title} index={index}>
-                            {(provided) => (
-                              <li
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                <Card
-                                  movie={movie}
-                                  index={index}
-                                  list={watched}
-                                  setList={setWatched}
-                                />
-                              </li>
-                            )}
-                          </Draggable>
-                        );
-                      })}
-                      {provided.placeholder}
-                    </ul>
-                  </div>
-                )}
-              </Droppable>
-            </div>
+            {columns.map((col) => (
+              <Column
+                key={col.columnName}
+                columnData={col.columnData}
+                setColumnData={col.setColumnData}
+                columnName={col.columnName}
+              />
+            ))}
           </div>
         </DragDropContext>
       </div>

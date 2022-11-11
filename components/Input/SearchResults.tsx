@@ -1,5 +1,5 @@
-import { useAutoAnimate } from '@formkit/auto-animate/react';
 import React from 'react';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { Movie } from '../../models/movies';
 
 interface Props {
@@ -29,7 +29,7 @@ export default function SearchResults({ data, setName }: Props) {
             <li
               key={movie.id}
               className="flex flex-start min-h-10 w-full border-b-[1px] border-solid border-l-gray-300 py-2 text-ellipsis hover:bg-blue-300 cursor-pointer"
-              value={movie.title}
+              value={index}
             >
               {movie.title}
             </li>

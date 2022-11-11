@@ -1,22 +1,22 @@
 import React, { useRef, useState } from 'react';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
-import { Movie } from '../models/movies';
+import { Movie } from '../../models/movies';
 
 interface props {
   movie: Movie;
   index: number;
-  list: Movie[];
-  setList: Function;
+  column: Movie[];
+  setColumn: React.Dispatch<React.SetStateAction<Movie[]>>;
 }
 
-export default function Card({ movie, index, list, setList }: props) {
+export default function Card({ movie, index, column, setColumn }: props) {
   const [edit, setEdit] = useState<boolean>(false);
   const [editInfo, setEditInfo] = useState<string>(movie.title);
 
   function editMovie(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
 
-    setList((prev: Movie[]) => {
+    setColumn((prev: Movie[]) => {
       let clone = Array.from(prev);
       let item: Movie = clone[index];
       item.title = editInfo;
@@ -30,7 +30,7 @@ export default function Card({ movie, index, list, setList }: props) {
   function deleteMovie(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
 
-    setList((prev: Movie[]) => {
+    setColumn((prev: Movie[]) => {
       return [...prev.slice(0, index), ...prev.slice(index + 1)];
     });
   }

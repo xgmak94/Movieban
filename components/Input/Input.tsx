@@ -1,8 +1,7 @@
 import axios from 'axios';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { List, Movie } from '../../models/movies';
 
-import { useAutoAnimate } from '@formkit/auto-animate/react';
 import SubmitButton from './SubmitButton';
 import ListButton from './ListButton';
 import SearchResults from './SearchResults';
@@ -16,7 +15,7 @@ interface props {
 
 export default function Inputfield({ name, setName, addToLists }: props) {
   const [data, setdata] = useState<Movie[]>([]);
-  const listRef = useRef<HTMLSelectElement>(null);
+  const [list, setList] = useState<string>(List.Backlog);
 
   useEffect(() => {
     async function getData() {
@@ -35,9 +34,8 @@ export default function Inputfield({ name, setName, addToLists }: props) {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!listRef.current) return;
 
-    addToLists(listRef.current.value);
+    addToLists(list);
   }
 
   return (
@@ -50,7 +48,7 @@ export default function Inputfield({ name, setName, addToLists }: props) {
           <InputSearch name={name} setName={setName} />
           <SearchResults data={data} setName={setName} />
         </div>
-        <ListButton listRef={listRef} />
+        <ListButton list={list} setList={setList} />
         <SubmitButton />
       </form>
     </div>

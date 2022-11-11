@@ -5,7 +5,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import Column from '../../components/Column/Column';
 
 export default function Board() {
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<Movie>();
 
   const [backlog, setBacklog] = useState<Movie[]>([]);
   const [watching, setWatching] = useState<Movie[]>([]);
@@ -19,15 +19,12 @@ export default function Board() {
 
   function addToLists(targetList: List) {
     if (!name) return;
-    const newMovie: Movie = {
-      title: name,
-    };
 
     columns
       .find((element) => element.columnName === targetList)
-      ?.setColumnData((prev) => [newMovie, ...prev]);
+      ?.setColumnData((prev) => [name, ...prev]);
 
-    setName('');
+    setName(undefined);
   }
 
   function handleOnDragEnd(result: DropResult) {
@@ -60,10 +57,11 @@ export default function Board() {
     setWatched(watchedClone);
   }
 
+  console.log(columns);
   return (
     <>
       <div className="flex flex-col p-3">
-        <Input name={name} setName={setName} addToLists={addToLists} />
+        <Input name={name!} setName={setName!} addToLists={addToLists} />
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
             {columns.map((col) => (

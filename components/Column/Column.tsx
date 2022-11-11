@@ -21,7 +21,6 @@ export default function Column({columnData, setColumnData, columnName}: Props) {
         <div {...provided.droppableProps} ref={provided.innerRef}>
           <ul className="m-3 h-[80vh]" ref={listParent}>
             {columnData.map((movie, index) => {
-              console.log(movie);
               return (
                 <Draggable key={movie.title} draggableId={movie.title} index={index}>
                   {(provided) => (

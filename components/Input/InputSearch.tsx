@@ -1,8 +1,9 @@
 import React from 'react';
+import { Movie } from '../../models/movies';
 
 interface Props {
-  name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
+  name: Movie;
+  setName: React.Dispatch<React.SetStateAction<Movie | undefined>>;
 }
 
 export default function InputSearch({ name, setName }: Props) {
@@ -10,8 +11,8 @@ export default function InputSearch({ name, setName }: Props) {
     <input
       className="rounded-2xl border w-full p-3 border-black dark:border-white"
       type="text"
-      value={name}
-      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+      value={name?.title}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName({ title: e.target.value })}
       placeholder="Enter movie"
     />
   );

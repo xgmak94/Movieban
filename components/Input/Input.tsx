@@ -8,8 +8,8 @@ import SearchResults from './SearchResults';
 import InputSearch from './InputSearch';
 
 interface props {
-  name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
+  name: Movie;
+  setName: React.Dispatch<React.SetStateAction<Movie | undefined>>;
   addToLists: Function;
 }
 
@@ -20,11 +20,11 @@ export default function Inputfield({ name, setName, addToLists }: props) {
   useEffect(() => {
     async function getData() {
       let req = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${name}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${name.title}`
       );
       setdata(req.data.results);
     }
-    if (!name) {
+    if (!name?.title) {
       setdata([]);
       return;
     }

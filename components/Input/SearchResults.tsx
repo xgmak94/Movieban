@@ -4,7 +4,7 @@ import { Movie } from '../../models/movies';
 
 interface Props {
   data: Movie[];
-  setName: React.Dispatch<React.SetStateAction<string>>;
+  setName: React.Dispatch<React.SetStateAction<Movie | undefined>>;
 }
 
 export default function SearchResults({ data, setName }: Props) {
@@ -14,7 +14,7 @@ export default function SearchResults({ data, setName }: Props) {
     e.preventDefault();
 
     let selectedMovieInfo: Movie = data[Number((e.target as HTMLOptionElement).value)];
-    setName(selectedMovieInfo.title);
+    setName(selectedMovieInfo);
   }
 
   return (

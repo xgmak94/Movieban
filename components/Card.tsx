@@ -11,7 +11,7 @@ interface props {
 
 export default function Card({ movie, index, list, setList }: props) {
   const [edit, setEdit] = useState<boolean>(false);
-  const [editInfo, setEditInfo] = useState<string>(movie.name);
+  const [editInfo, setEditInfo] = useState<string>(movie.title);
 
   function editMovie(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -19,7 +19,7 @@ export default function Card({ movie, index, list, setList }: props) {
     setList((prev: Movie[]) => {
       let clone = Array.from(prev);
       let item: Movie = clone[index];
-      item.name = editInfo;
+      item.title = editInfo;
 
       return [...clone.slice(0, index), item, ...clone.slice(index + 1)];
     });
@@ -54,7 +54,7 @@ export default function Card({ movie, index, list, setList }: props) {
               onChange={(e) => handleEditText(e)}
             />
           ) : (
-            <div className="flex flex-start col-span-10 py-3">{movie.name}</div>
+            <div className="flex flex-start col-span-10 py-3">{movie.title}</div>
           )}
         </div>
         <div className="flex justify-evenly gap-2 col-span-3">

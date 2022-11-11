@@ -1,9 +1,9 @@
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import React from 'react';
-import { MovieData } from '../../models/movies';
+import { Movie } from '../../models/movies';
 
 interface Props {
-  data: MovieData[];
+  data: Movie[];
   setName: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -13,7 +13,7 @@ export default function SearchResults({ data, setName }: Props) {
   function handleSelectOption(e: React.MouseEvent) {
     e.preventDefault();
 
-    let selectedMovieInfo: MovieData = data[Number((e.target as HTMLOptionElement).value)];
+    let selectedMovieInfo: Movie = data[Number((e.target as HTMLOptionElement).value)];
     setName(selectedMovieInfo.title);
   }
 
@@ -23,7 +23,7 @@ export default function SearchResults({ data, setName }: Props) {
       onClick={(e) => handleSelectOption(e)}
       ref={searchParent}
     >
-      {data.map((movie: MovieData, index: number) => {
+      {data.map((movie: Movie, index: number) => {
         return (
           <>
             <li

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useRef, useEffect, useState } from 'react';
-import { List, Movie, MovieData } from '../../models/movies';
+import { List, Movie } from '../../models/movies';
 
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import SubmitButton from './SubmitButton';
@@ -15,7 +15,7 @@ interface props {
 }
 
 export default function Inputfield({ name, setName, addToLists }: props) {
-  const [data, setdata] = useState<MovieData[]>([]);
+  const [data, setdata] = useState<Movie[]>([]);
   const listRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {

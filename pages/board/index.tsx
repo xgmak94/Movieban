@@ -28,10 +28,7 @@ export default function Board() {
     console.log(lists[targetList]);
     if (!name) return;
     const newMovie: Movie = {
-      id: name,
-      name,
-      status: List.Backlog,
-      rating: undefined,
+      title: name,
     };
 
     lists[targetList].setList((prev) => [newMovie, ...prev]);
@@ -71,10 +68,7 @@ export default function Board() {
   return (
     <>
       <div className="flex flex-col p-3">
-        <div className="flex flex-col justify-center">
-          <div className="text-4xl">Movieban</div>
-          <InputField name={name} setName={setName} addToLists={addToLists} />
-        </div>
+        <InputField name={name} setName={setName} addToLists={addToLists} />
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
             <div className="flex flex-col overflow-auto text-center bg-gray-400 p-3 rounded-lg">
@@ -85,7 +79,7 @@ export default function Board() {
                     <ul className="m-3 h-[80vh]" ref={backlogParent}>
                       {backlog.map((movie, index) => {
                         return (
-                          <Draggable key={movie.id} draggableId={movie.id} index={index}>
+                          <Draggable key={movie.title} draggableId={movie.title} index={index}>
                             {(provided) => (
                               <li
                                 ref={provided.innerRef}
@@ -117,7 +111,7 @@ export default function Board() {
                     <ul className="m-3 h-[80vh]" ref={watchingParent}>
                       {watching.map((movie, index) => {
                         return (
-                          <Draggable key={movie.id} draggableId={movie.id} index={index}>
+                          <Draggable key={movie.title} draggableId={movie.title} index={index}>
                             {(provided) => (
                               <li
                                 ref={provided.innerRef}
@@ -149,7 +143,7 @@ export default function Board() {
                     <ul className="m-3 h-[80vh]" ref={watchedParent}>
                       {watched.map((movie, index) => {
                         return (
-                          <Draggable key={movie.id} draggableId={movie.id} index={index}>
+                          <Draggable key={movie.title} draggableId={movie.title} index={index}>
                             {(provided) => (
                               <li
                                 ref={provided.innerRef}

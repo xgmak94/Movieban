@@ -1,30 +1,30 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Input from '../../components/Input/Input';
 import { Movie, List } from '../../models/movies';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import Column from '../../components/Column/Column';
 
 export default function Board() {
-  const [name, setName] = useState<Movie>();
+  const [movie, setMovie] = useState<Movie>();
 
   const [backlog, setBacklog] = useState<Movie[]>([]);
   const [watching, setWatching] = useState<Movie[]>([]);
   const [watched, setWatched] = useState<Movie[]>([]);
 
   const columns = [
-    { columnData: backlog, setColumnData: setBacklog, columnName: 'Backlog' },
-    { columnData: watching, setColumnData: setWatching, columnName: 'Watching' },
-    { columnData: watched, setColumnData: setWatched, columnName: 'Watched' },
+    { columnName: 'Backlog', columnData: backlog, setColumnData: setBacklog },
+    { columnName: 'Watching', columnData: watching, setColumnData: setWatching },
+    { columnName: 'Watched', columnData: watched, setColumnData: setWatched },
   ];
 
   function addToLists(targetList: List) {
-    if (!name) return;
+    if (!movie) return;
 
     columns
       .find((element) => element.columnName === targetList)
-      ?.setColumnData((prev) => [name, ...prev]);
+      ?.setColumnData((prev) => [movie, ...prev]);
 
-    setName(undefined);
+    setMovie({ title: '' });
   }
 
   function handleOnDragEnd(result: DropResult) {
@@ -61,7 +61,7 @@ export default function Board() {
   return (
     <>
       <div className="flex flex-col p-3">
-        <Input name={name!} setName={setName!} addToLists={addToLists} />
+        <Input movie={movie} setMovie={setMovie} addToLists={addToLists} />
         <DragDropContext onDragEnd={handleOnDragEnd}>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
             {columns.map((col) => (

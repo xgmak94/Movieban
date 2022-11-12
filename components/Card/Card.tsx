@@ -1,6 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { Movie } from '../../models/movies';
+import MovieInfoModal from './MovieInfoModal';
 
 interface props {
   movie: Movie;
@@ -12,6 +14,7 @@ interface props {
 export default function Card({ movie, index, column, setColumn }: props) {
   const [edit, setEdit] = useState<boolean>(false);
   const [editInfo, setEditInfo] = useState<string>(movie.title);
+  const [modal, setModal] = useState(false);
 
   function editMovie(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -43,7 +46,15 @@ export default function Card({ movie, index, column, setColumn }: props) {
 
   return (
     <>
-      <form className="grid grid-cols-10 justify-between rounded-md text-black dark:text-white bg-slate-300 dark:bg-slate-700 w-full p-3 m-3 gap-3 transition hover:scale-105 hover:shadow-lg items-center">
+      {modal &&
+        createPortal(
+          <MovieInfoModal movie={movie} index={index} modal={modal} setModal={setModal} />,
+          document.querySelector<HTMLElement>('#portal')!
+        )}
+      <form
+        className="grid grid-cols-10 justify-between rounded-md text-black dark:text-white bg-slate-300 dark:bg-slate-700 w-full p-3 m-3 gap-3 transition hover:scale-105 hover:shadow-lg items-center"
+        onClick={() => setModal((prev) => !prev)}
+      >
         <div className="grid grid-cols-10 col-span-7">
           {edit ? (
             <input

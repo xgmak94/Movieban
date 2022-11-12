@@ -8,29 +8,30 @@ import SearchResults from './SearchResults';
 import InputSearch from './InputSearch';
 
 interface props {
-  name: Movie;
-  setName: React.Dispatch<React.SetStateAction<Movie | undefined>>;
+  movie: Movie | undefined;
+  setMovie: React.Dispatch<React.SetStateAction<Movie | undefined>>;
   addToLists: Function;
 }
 
-export default function Inputfield({ name, setName, addToLists }: props) {
+export default function Inputfield({ movie, setMovie, addToLists }: props) {
   const [data, setdata] = useState<Movie[]>([]);
   const [list, setList] = useState<string>(List.Backlog);
 
   useEffect(() => {
     async function getData() {
       let req = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${name.title}`
+        `https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${movie?.title}`
       );
+      console.log(req);
       setdata(req.data.results);
     }
-    if (!name?.title) {
+    if (!movie?.title) {
       setdata([]);
       return;
     }
 
     getData();
-  }, [name]);
+  }, [movie]);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -45,8 +46,8 @@ export default function Inputfield({ name, setName, addToLists }: props) {
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
       >
         <div className="w-[50vw]">
-          <InputSearch name={name} setName={setName} />
-          <SearchResults data={data} setName={setName} />
+          <InputSearch movie={movie} setMovie={setMovie} />
+          <SearchResults data={data} setMovie={setMovie} />
         </div>
         <ListButton list={list} setList={setList} />
         <SubmitButton />

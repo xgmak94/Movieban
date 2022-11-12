@@ -4,17 +4,17 @@ import { Movie } from '../../models/movies';
 
 interface Props {
   data: Movie[];
-  setName: React.Dispatch<React.SetStateAction<Movie | undefined>>;
+  setMovie: React.Dispatch<React.SetStateAction<Movie | undefined>>;
 }
 
-export default function SearchResults({ data, setName }: Props) {
+export default function SearchResults({ data, setMovie }: Props) {
   const [searchParent] = useAutoAnimate<HTMLUListElement>();
 
   function handleSelectOption(e: React.MouseEvent) {
     e.preventDefault();
 
     let selectedMovieInfo: Movie = data[Number((e.target as HTMLOptionElement).value)];
-    setName(selectedMovieInfo);
+    setMovie(selectedMovieInfo);
   }
 
   return (

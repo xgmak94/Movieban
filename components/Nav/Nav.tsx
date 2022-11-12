@@ -7,7 +7,7 @@ export default function Navbar() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <nav className="sticky top-0 p-3 text-black dark:text-white bg-slate-200 dark:bg-slate-600">
+    <nav className="p-3 text-black dark:text-white bg-slate-200 dark:bg-slate-600">
       <div className="container flex flex-row justify-between items-center">
         <div className="container flex justify-start gap-3">
           <Link href="/">

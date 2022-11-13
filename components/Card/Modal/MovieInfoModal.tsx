@@ -1,17 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Movie } from '../../models/movies';
-import Image from 'next/image';
-import axios from 'axios';
-import { createPortal } from 'react-dom';
+import React from 'react';
+import { Movie } from '../../../models/movies';
 import ModalContent from './ModalContent';
 
-const imageURL = 'https://image.tmdb.org/t/p/original';
-
-type Props = {
+interface Props {
   movie: Movie;
   index: number;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
-};
+}
 
 export default function MovieInfoModal({ movie, index, setModal }: Props) {
   return (

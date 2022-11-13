@@ -22,12 +22,12 @@ export default function ReactSelect({ movie, setMovie, data }: Props) {
     };
   });
 
-  function handleChange(e) {
+  function handleChange(e: { value: React.SetStateAction<Movie | undefined>; }) {
     console.log(e);
     setMovie(e?.value)
   }
 
-  function handleInputChange(e) {
+  function handleInputChange(e: any) {
     setMovie((prev) => {
       return { title: e };
     });
@@ -35,7 +35,7 @@ export default function ReactSelect({ movie, setMovie, data }: Props) {
 
   return (
     <Select
-      className="h-1/6 w-3/5 rounded-full text-center text-4xl text-black"
+      className="h-full w-full text-center text-xl text-black"
       options={options}
       value={{ label: movie?.title, value: movie }}
       onChange={(e) => setMovie(e?.value)}

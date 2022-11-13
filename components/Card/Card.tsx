@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { Movie } from '../../models/movies';
-import MovieInfoModal from './MovieInfoModal';
+import MovieInfoModal from './Modal/MovieInfoModal';
 
 interface props {
   movie: Movie;

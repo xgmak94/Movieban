@@ -14,7 +14,7 @@ interface props {
   addToLists: Function;
 }
 
-export default function Inputfield({ movie, setMovie, addToLists }: props) {
+export default function Input({ movie, setMovie, addToLists }: props) {
   const [data, setdata] = useState<Movie[]>([]);
   const [list, setList] = useState<string>(List.Backlog);
 

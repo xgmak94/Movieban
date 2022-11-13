@@ -6,6 +6,7 @@ import SubmitButton from './SubmitButton';
 import ListButton from './ListButton';
 import SearchResults from './SearchResults';
 import InputSearch from './InputSearch';
+import ReactSelect from './ReactSelect';
 
 interface props {
   movie: Movie | undefined;
@@ -22,7 +23,6 @@ export default function Inputfield({ movie, setMovie, addToLists }: props) {
       let req = await axios.get(
         `https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${movie?.title}`
       );
-      console.log(req);
       setdata(req.data.results);
     }
     if (!movie?.title) {
@@ -45,12 +45,11 @@ export default function Inputfield({ movie, setMovie, addToLists }: props) {
         className="flex justify-center my-3"
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
       >
-        <div className="w-[50vw]">
-          <InputSearch movie={movie} setMovie={setMovie} />
-          <SearchResults data={data} setMovie={setMovie} />
-        </div>
+        <ReactSelect movie={movie} setMovie={setMovie} data={data} />
+        {/* <InputSearch movie={movie} setMovie={setMovie} /> */}
+        {/* <SearchResults data={data} setMovie={setMovie} /> */}
         <ListButton list={list} setList={setList} />
-        <SubmitButton />
+        {/* <SubmitButton /> */}
       </form>
     </div>
   );

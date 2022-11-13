@@ -48,7 +48,7 @@ export default function Card({ movie, index, column, setColumn }: props) {
     <>
       {modal &&
         createPortal(
-          <MovieInfoModal movie={movie} index={index} modal={modal} setModal={setModal} />,
+          <MovieInfoModal movie={movie} index={index} setModal={setModal} />,
           document.querySelector<HTMLElement>('#portal')!
         )}
       <form

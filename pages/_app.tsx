@@ -6,6 +6,7 @@ import Navbar from '../components/Nav/Nav';
 
 import { ThemeProvider } from 'next-themes';
 import Head from 'next/head';
+import Footer from '../components/Footer/Footer';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -17,6 +18,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
       <ThemeProvider attribute="class">
         <Navbar />
         <Component {...pageProps} />
+        <Footer />
       </ThemeProvider>
     </>
   );

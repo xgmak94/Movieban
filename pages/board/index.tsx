@@ -57,7 +57,6 @@ export default function Board() {
     setWatched(watchedClone);
   }
 
-  console.log(columns);
   return (
     <>
       <div className="flex flex-col p-3">

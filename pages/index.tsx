@@ -1,6 +1,12 @@
 import Link from 'next/link';
 
+import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+
 export default function Homepage() {
+  const session = useSession();
+  const supabase = useSupabaseClient();
+
   return (
     <>
       <div className="grid place-items-center h-screen text-black dark:text-white bg-gradient-to-r from-red-300 to-blue-500 p-3">
@@ -8,7 +14,7 @@ export default function Homepage() {
           <div className="flex text-4xl justify-center m-1">Keep track of your favorite movies</div>
           <div className="flex text-3xl justify-center m-1">Login to get started</div>
           <div className="flex text-3xl justify-center m-1">
-            <Link href="/api/auth/login">
+            <Link href="/login">
               <button className="font-bold py-2 px-4 rounded-full bg-blue-500 m-1">Login</button>
             </Link>
           </div>

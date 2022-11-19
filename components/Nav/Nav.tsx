@@ -14,8 +14,10 @@ export default function Navbar() {
           </Link>
         </div>
         <div className="flex justify-end gap-3">
-          <button className="hover:animate-bounce">Search</button>
-          <button className="hover:animate-bounce">Login</button>
+          <button>Search</button>
+          <Link href="/login">
+            <button>Login</button>
+          </Link>
           <ModeSwitch />
         </div>
       </div>

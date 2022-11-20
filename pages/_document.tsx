@@ -19,7 +19,7 @@ export default function _Document() {
   return (
     <Html lang="en">
       <Head />
-      <body className="bg-white text-black dark:bg-black dark:text-white">
+      <body>
         <Main />
         <div id="portal" />
         <NextScript />

@@ -59,20 +59,26 @@ export default function Board() {
 
   return (
     <>
-      <div className="flex flex-col p-3">
-        <Input movie={movie} setMovie={setMovie} addToLists={addToLists} />
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
-            {columns.map((col) => (
-              <Column
-                key={col.columnName}
-                columnData={col.columnData}
-                setColumnData={col.setColumnData}
-                columnName={col.columnName}
-              />
-            ))}
-          </div>
-        </DragDropContext>
+      <div
+        className="text-black dark:text-white
+      bg-gradient-to-tr from-red-200 via-gray-200 to-blue-500
+      dark:from-gray-400 dark:via-gray-600 dark:to-blue-900"
+      >
+        <div className="flex flex-col p-3">
+          <Input movie={movie} setMovie={setMovie} addToLists={addToLists} />
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
+              {columns.map((col) => (
+                <Column
+                  key={col.columnName}
+                  columnData={col.columnData}
+                  setColumnData={col.setColumnData}
+                  columnName={col.columnName}
+                />
+              ))}
+            </div>
+          </DragDropContext>
+        </div>
       </div>
     </>
   );

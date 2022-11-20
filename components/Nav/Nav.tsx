@@ -19,11 +19,7 @@ export default function Navbar() {
             <button className="" onClick={() => supabaseClient.auth.signOut()}>
               Sign out
             </button>
-          ) : (
-            <Link href="/login">
-              <button>Login</button>
-            </Link>
-          )}
+          ) : null}
           <ModeSwitch />
         </div>
       </div>

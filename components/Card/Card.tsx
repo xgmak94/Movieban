@@ -55,26 +55,16 @@ export default function Card({ movie, index, column, setColumn }: props) {
         className="grid grid-cols-10 justify-between rounded-md text-black dark:text-white bg-slate-300 dark:bg-slate-700 w-full p-3 m-3 gap-3 transition hover:scale-105 hover:shadow-lg items-center"
         onClick={() => setModal((prev) => !prev)}
       >
-        <div className="grid grid-cols-10 col-span-7">
-          {edit ? (
-            <input
-              autoFocus
-              className="rounded-lg py-3 col-span-10 text-black dark:text-white"
-              type="text"
-              value={editInfo}
-              onChange={(e) => handleEditText(e)}
-            />
-          ) : (
-            <div className="flex flex-start col-span-10 py-3">{movie.title}</div>
-          )}
+        <div className="grid grid-cols-10 col-span-7 py-3">
+          <div className="flex flex-start col-span-10">{movie.title}</div>
         </div>
         <div className="flex justify-evenly gap-2 col-span-3">
-          <button
+          {/* <button
             className="text-lg p-1 rounded-lg border border-black dark:border-white hover:border-blue-300"
             onClick={(e) => editMovie(e)}
           >
             <AiFillEdit />
-          </button>
+          </button> */}
           <button
             className="text-lg p-1 rounded-lg border border-black dark:border-white"
             onClick={(e) => deleteMovie(e)}

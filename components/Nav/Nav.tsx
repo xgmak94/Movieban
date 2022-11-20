@@ -11,15 +11,19 @@ export default function Navbar() {
       <div className="flex flex-row justify-between items-center">
         <div className="container flex justify-start gap-3">
           <Link href="/">
-            <span className="text-xl font-semibold">Movie Board</span>
+            <span className="text-xl font-semibold capitalize">movie board</span>
           </Link>
         </div>
-        <div className="flex justify-end gap-3">
+        <div className="flex gap-3">
           {user ? (
-            <button className="" onClick={() => supabaseClient.auth.signOut()}>
-              Sign out
+            <button className="hover:text-gray-50 dark:hover:text-gray-400 capitalize" onClick={() => supabaseClient.auth.signOut()}>
+              logout
             </button>
-          ) : null}
+          ) : (
+            <Link href="/login">
+              <button className="hover:text-gray-50 dark:hover:text-gray-400">Login</button>
+            </Link>
+          )}
           <ModeSwitch />
         </div>
       </div>

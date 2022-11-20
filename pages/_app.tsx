@@ -18,7 +18,7 @@ export default function MyApp({
 }: AppProps<{
   initialSession: Session;
 }>) {
-  const [supabase] = useState(() => createBrowserSupabaseClient());
+  const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   return (
     <>
       <Head>
@@ -26,13 +26,16 @@ export default function MyApp({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ThemeProvider attribute="class">
-        <SessionContextProvider supabaseClient={supabase} initialSession={pageProps.initialSession}>
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}
+      >
+        <ThemeProvider attribute="class">
           <Navbar />
           <Component {...pageProps} />
           <Footer />
-        </SessionContextProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </SessionContextProvider>
     </>
   );
 }

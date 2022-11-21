@@ -2,10 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { List, Movie } from '../../models/movies';
 
-import SubmitButton from './SubmitButton';
 import ListButton from './ListButton';
-import SearchResults from './SearchResults';
-import InputSearch from './InputSearch';
 import ReactSelect from './ReactSelect';
 
 interface props {
@@ -46,8 +43,6 @@ export default function Input({ movie, setMovie, addToLists }: props) {
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
       >
         <ReactSelect movie={movie} setMovie={setMovie} data={data} />
-        {/* <InputSearch movie={movie} setMovie={setMovie} /> */}
-        {/* <SearchResults data={data} setMovie={setMovie} /> */}
         <ListButton list={list} setList={setList} />
         {/* <SubmitButton /> */}
       </form>

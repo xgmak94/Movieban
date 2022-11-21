@@ -8,6 +8,7 @@ export default function Homepage() {
   const user = useUser();
   const supabase = useSupabaseClient();
 
+  console.log("Homepage", user);
   return (
     <>
       {user ? (

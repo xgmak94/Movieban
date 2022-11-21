@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 import { Movie } from '../../models/movies';
 import MovieInfoModal from './Modal/MovieInfoModal';
+import { Button } from '@material-tailwind/react';
 
 interface props {
   movie: Movie;
@@ -51,28 +52,18 @@ export default function Card({ movie, index, column, setColumn }: props) {
           <MovieInfoModal movie={movie} index={index} setModal={setModal} />,
           document.querySelector<HTMLElement>('#portal')!
         )}
-      <form
-        className="grid grid-cols-10 justify-between rounded-md text-black dark:text-white bg-slate-300 dark:bg-slate-700 w-full p-3 m-3 gap-3 transition hover:scale-105 hover:shadow-lg items-center"
+      <Button
+        className="flex flex-row justify-between rounded-md text-black dark:text-white bg-blue-300 dark:bg-blue-gray-500 w-full p-3 m-3 gap-3 transition hover:scale-105 hover:shadow-lg items-center py-5"
         onClick={() => setModal((prev) => !prev)}
       >
-        <div className="grid grid-cols-10 col-span-7 py-3">
-          <div className="flex flex-start col-span-10">{movie.title}</div>
-        </div>
-        <div className="flex justify-evenly gap-2 col-span-3">
-          {/* <button
-            className="text-lg p-1 rounded-lg border border-black dark:border-white hover:border-blue-300"
-            onClick={(e) => editMovie(e)}
-          >
-            <AiFillEdit />
-          </button> */}
-          <button
-            className="text-lg p-1 rounded-lg border border-black dark:border-white"
-            onClick={(e) => deleteMovie(e)}
-          >
-            <AiFillDelete />
-          </button>
-        </div>
-      </form>
+        <div className="flex flex-start col-span-10">{movie.title}</div>
+        <Button
+          className="text-lg p-1 rounded-lg border border-black dark:border-white hover:scale-110"
+          onClick={(e) => deleteMovie(e)}
+        >
+          <AiFillDelete />
+        </Button>
+      </Button>
     </>
   );
 }

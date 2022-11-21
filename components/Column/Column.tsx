@@ -14,12 +14,14 @@ export default function Column({columnData, setColumnData, columnName}: Props) {
   const [listParent] = useAutoAnimate<HTMLUListElement>();
 
   return (
-    <div className="flex flex-col overflow-auto text-center bg-gray-400 p-3 rounded-lg">
+    <div className="flex flex-col overflow-auto text-center p-3 rounded-lg min-h-screen
+    bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100
+    dark:bg-gradient-to-b dark:from-gray-900 dark:via-blue-gray-600 dark:to-gray-400">
     <div className="text-2xl font-semibold capitalize">{columnName}</div>
     <Droppable droppableId={columnName}>
       {(provided) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
-          <ul className="m-3 h-[80vh]" ref={listParent}>
+          <ul className="m-3" ref={listParent}>
             {columnData.map((movie, index) => {
               return (
                 <Draggable key={movie.title} draggableId={movie.title} index={index}>

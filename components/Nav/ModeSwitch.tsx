@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from 'next-themes';
-import { Switch } from '@material-tailwind/react';
+import { Switch, Tooltip } from '@material-tailwind/react';
 
 import { MdOutlineModeNight, MdOutlineLightMode } from 'react-icons/md';
 
@@ -14,7 +14,9 @@ export default function ModeSwitch() {
   return (
     <>
       <div className="flex flex-row items-center gap-3">
-        <Switch checked={theme === 'dark'} onChange={() => handleToggle()} />
+        <Tooltip content={theme === 'dark' ? 'Dark mode' : 'Light mode'}>
+          <Switch checked={theme === 'dark'} onChange={() => handleToggle()} />
+        </Tooltip>
         {theme === 'light' ? <MdOutlineModeNight /> : <MdOutlineLightMode />}
       </div>
     </>

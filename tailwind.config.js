@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const withMT = require("@material-tailwind/react/utils/withMT");
+const withMT = require('@material-tailwind/react/utils/withMT');
 
 module.exports = withMT({
   content: [
@@ -12,5 +12,8 @@ module.exports = withMT({
   theme: {
     extend: {},
   },
-  plugins: [],
+  corePlugins: {
+    aspectRatio: false,
+  },
+  plugins: [require('@tailwindcss/aspect-ratio')],
 });

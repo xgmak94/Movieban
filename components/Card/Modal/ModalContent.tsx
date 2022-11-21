@@ -18,6 +18,7 @@ export default function ModalContent({ movie }: Props) {
           src={`${imageURL}${movie.poster_path}`}
           className="self-center object-contain"
           alt="poster"
+          layout="intrinsic"
           width="200"
           height="200"
         />

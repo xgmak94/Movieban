@@ -1,9 +1,10 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { List, Movie } from '../../models/movies';
 
 import ListButton from './ListButton';
-import ReactSelect from './ReactSelect';
+import Search from './Search';
+
+import Button from '@mui/material/Button';
 
 interface props {
   movie: Movie | undefined;
@@ -12,40 +13,37 @@ interface props {
 }
 
 export default function Input({ movie, setMovie, addToLists }: props) {
-  const [data, setdata] = useState<Movie[]>([]);
   const [list, setList] = useState<string>(List.Backlog);
 
-  useEffect(() => {
-    async function getData() {
-      let req = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&query=${movie?.title}`
-      );
-      setdata(req.data.results);
-    }
-    if (!movie?.title) {
-      setdata([]);
-      return;
-    }
-
-    getData();
-  }, [movie]);
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
+  function handleSubmit() {
     addToLists(list);
+  }
+
+  function handleKeyDown(e: any) {
+    if (e.key === 'Enter' && e.type === 'keydown' && movie) {
+      console.log('should submit', movie);
+    }
   }
 
   return (
     <div className="flex flex-col">
-      <form
-        className="flex justify-center my-3"
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleSubmit(e)}
-      >
-        <ReactSelect movie={movie} setMovie={setMovie} data={data} />
-        <ListButton list={list} setList={setList} />
-        {/* <SubmitButton /> */}
-      </form>
+      <div className="flex justify-center items-center" onKeyDown={handleKeyDown}>
+        <div className="w-full">
+          <Search movie={movie} setMovie={setMovie} />
+        </div>
+        <div className="w-full">
+          <ListButton list={list} setList={setList} />
+        </div>
+        <div>
+          <Button
+            className="bg-blue-600 dark:bg-blue-300 rounded-lg p-3"
+            variant="contained"
+            onClick={handleSubmit}
+          >
+            Add
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

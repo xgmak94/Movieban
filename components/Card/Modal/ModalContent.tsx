@@ -16,9 +16,8 @@ export default function ModalContent({ movie }: Props) {
       <div className="flex flex-col justify-center">
         <Image
           src={`${imageURL}${movie.poster_path}`}
-          className="self-center object-contain"
+          className="self-center object-contain w-auto h-auto"
           alt="poster"
-          layout="intrinsic"
           width="200"
           height="200"
         />

@@ -1,16 +1,15 @@
+import react, { useState } from 'react';
 import type { AppProps } from 'next/app';
 
 import '../styles/globals.css';
 
-import Navbar from '../components/Nav/Nav';
-
-import { ThemeProvider } from 'next-themes';
 import Head from 'next/head';
+import Navbar from '../components/Nav/Nav';
 import Footer from '../components/Footer/Footer';
+import { ThemeProvider } from 'next-themes';
 
 import { createBrowserSupabaseClient } from '@supabase/auth-helpers-nextjs';
 import { SessionContextProvider, Session } from '@supabase/auth-helpers-react';
-import { useState } from 'react';
 
 export default function MyApp({
   Component,

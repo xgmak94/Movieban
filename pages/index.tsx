@@ -1,14 +1,12 @@
 import Link from 'next/link';
 
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-import { Button } from "@material-tailwind/react";
 import Board from './board';
+import Button from '@mui/material/Button';
 
 export default function Homepage() {
   const user = useUser();
-  const supabase = useSupabaseClient();
 
-  console.log("Homepage", user);
   return (
     <>
       {user ? (
@@ -26,7 +24,7 @@ export default function Homepage() {
             <div className="flex text-3xl justify-center">Login to get started</div>
             <div className="flex text-3xl justify-center">
               <Link href="/login">
-                <Button className="hover:text-gray-50 dark:hover:text-gray-400">Login</Button>
+                <Button variant="contained" className="hover:text-gray-50 dark:hover:text-gray-400">Login</Button>
               </Link>
             </div>
           </div>

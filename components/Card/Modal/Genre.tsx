@@ -1,7 +1,7 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Movie } from '../../../models/movies';
-import { Chip } from '@material-tailwind/react';
+import Chip from '@mui/material/Chip';
+import axios from 'axios';
 
 interface Props {
   movie: Movie;
@@ -23,15 +23,17 @@ export default function Genre({ movie }: Props) {
   }, [movie]);
 
   return (
-    <div className="flex justify-center gap-3 asp">
-      {loading ? (
-        <div>Loading genres...</div>
-      ) : (
-        movie.genre_ids?.map((id) => {
-          let info = genres?.find((ele) => ele.id === id);
-          return <Chip key={id} value={info.name} color="cyan" />;
-        })
-      )}
-    </div>
+    <>
+      <div className="flex justify-center gap-3 asp">
+        {loading ? (
+          <div>Loading genres...</div>
+        ) : (
+          movie.genre_ids?.map((id) => {
+            let info = genres?.find((ele) => ele.id === id);
+            return <Chip key={id} label={info.name} color="primary" />;
+          })
+        )}
+      </div>
+    </>
   );
 }

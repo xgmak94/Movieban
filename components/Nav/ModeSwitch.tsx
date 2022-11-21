@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from 'next-themes';
-import { Switch, Tooltip } from '@material-tailwind/react';
-
+import Switch from '@mui/material/Switch';
+import Tooltip from '@mui/material/Tooltip';
 import { MdOutlineModeNight, MdOutlineLightMode } from 'react-icons/md';
 
 export default function ModeSwitch() {
@@ -13,11 +13,11 @@ export default function ModeSwitch() {
 
   return (
     <>
-      <div className="flex flex-row items-center gap-3">
-        <Tooltip content={theme === 'dark' ? 'Dark mode' : 'Light mode'}>
+      <div className="flex flex-row items-center">
+        <Tooltip title={theme === 'dark' ? 'Dark mode' : 'Light mode'}>
           <Switch checked={theme === 'dark'} onChange={() => handleToggle()} />
         </Tooltip>
-        {theme === 'light' ? <MdOutlineModeNight /> : <MdOutlineLightMode />}
+        {theme === 'dark' ? <MdOutlineModeNight /> : <MdOutlineLightMode />}
       </div>
     </>
   );

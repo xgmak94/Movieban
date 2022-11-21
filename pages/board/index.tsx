@@ -57,31 +57,29 @@ export default function Board() {
     setWatched(watchedClone);
   }
 
-return (
-  <>
-    <div
-      className="text-black dark:text-white
-    bg-gradient-to-tr from-red-200 to-blue-500
-    dark:from-gray-600 dark:to-blue-900"
-    >
-      <div className="flex flex-col p-3">
-        <Input movie={movie} setMovie={setMovie} addToLists={addToLists} />
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
-            {columns.map((col) => (
-              <Column
-                key={col.label}
-                columnData={col.columnData}
-                setColumnData={col.setColumnData}
-                columnName={col.label}
-              />
-            ))}
-          </div>
-        </DragDropContext>
+  return (
+    <>
+      <div
+        className="text-black dark:text-white bg-gradient-to-tr
+        from-red-200 to-blue-500
+        dark:from-gray-600 dark:to-blue-900"
+      >
+        <div className="flex flex-col p-3">
+          <Input movie={movie} setMovie={setMovie} addToLists={addToLists} />
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
+              {columns.map((col) => (
+                <Column
+                  key={col.label}
+                  columnData={col.columnData}
+                  setColumnData={col.setColumnData}
+                  columnName={col.label}
+                />
+              ))}
+            </div>
+          </DragDropContext>
+        </div>
       </div>
-    </div>
-  </>
-);
-
+    </>
+  );
 }
-

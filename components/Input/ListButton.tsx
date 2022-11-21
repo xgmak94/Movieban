@@ -1,26 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import { List } from '../../models/movies';
 
 interface Props {
   list: string;
   setList: React.Dispatch<React.SetStateAction<string>>;
 }
+export default function BasicSelect({ list, setList }: Props) {
+  const handleChange = (event: SelectChangeEvent) => {
+    setList(event.target.value as string);
+  };
 
-export default function ListButton({ list, setList }: Props) {
   return (
-    <div>
-      <select
-        className="rounded-lg p-3 border border-black dark:border-white"
-        name="list"
-        value={list}
-        onChange={(e) => setList(e.target.value)}
-      >
-        {Object.values(List).map((value) => {
-          if (isNaN(Number(value))) {
-            return <option key={value}>{value}</option>;
-          }
-        })}
-      </select>
+    <div className="min-w-[25vw]">
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Status</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={list}
+          label="list"
+          onChange={handleChange}
+        >
+          {Object.values(List).map((value) => {
+            if (isNaN(Number(value))) {
+              return (
+                <MenuItem key={value} value={value}>
+                  {value}
+                </MenuItem>
+              );
+            }
+          })}
+        </Select>
+      </FormControl>
     </div>
   );
 }

@@ -12,16 +12,16 @@ export default function Board() {
   const [watched, setWatched] = useState<Movie[]>([]);
 
   const columns = [
-    { columnName: 'Backlog', columnData: backlog, setColumnData: setBacklog },
-    { columnName: 'Watching', columnData: watching, setColumnData: setWatching },
-    { columnName: 'Watched', columnData: watched, setColumnData: setWatched },
+    { label: 'Backlog', columnData: backlog, setColumnData: setBacklog },
+    { label: 'Watching', columnData: watching, setColumnData: setWatching },
+    { label: 'Watched', columnData: watched, setColumnData: setWatched },
   ];
 
   function addToLists(targetList: List) {
     if (!movie) return;
 
     columns
-      .find((element) => element.columnName === targetList)
+      .find((element) => element.label === targetList)
       ?.setColumnData((prev) => [movie, ...prev]);
 
     setMovie({ title: '' });
@@ -60,9 +60,9 @@ export default function Board() {
   return (
     <>
       <div
-        className="text-black dark:text-white
-      bg-gradient-to-tr from-red-200 via-gray-200 to-blue-500
-      dark:from-gray-400 dark:via-gray-600 dark:to-blue-900"
+        className="text-black dark:text-white bg-gradient-to-tr
+        from-red-200 to-blue-500
+        dark:from-gray-600 dark:to-blue-900"
       >
         <div className="flex flex-col p-3">
           <Input movie={movie} setMovie={setMovie} addToLists={addToLists} />
@@ -70,10 +70,10 @@ export default function Board() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
               {columns.map((col) => (
                 <Column
-                  key={col.columnName}
+                  key={col.label}
                   columnData={col.columnData}
                   setColumnData={col.setColumnData}
-                  columnName={col.columnName}
+                  columnName={col.label}
                 />
               ))}
             </div>

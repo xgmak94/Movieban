@@ -22,7 +22,7 @@ export default function Login() {
     dark:from-gray-400 dark:via-gray-600 dark:to-blue-900"
     >
       <Auth
-        redirectTo={window.location.origin}
+        redirectTo={process.env.NEXT_PUBLIC_SUPABASE_REDIRECT_URL}
         appearance={{ theme: ThemeSupa }}
         supabaseClient={supabaseClient}
         providers={['google', 'github']}

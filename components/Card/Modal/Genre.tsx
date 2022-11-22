@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from '../../../models/movies';
-import Chip from '@mui/material/Chip';
+import {Chip} from '@mui/material';
 import axios from 'axios';
 
 interface Props {

@@ -3,7 +3,7 @@ import ModeSwitch from './ModeSwitch';
 import Avatar from './Avatar';
 import { useUser } from '@supabase/auth-helpers-react';
 
-import Button from '@mui/material/Button';
+import {Button} from '@mui/material';
 
 export default function Navbar() {
   const user = useUser();

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTheme } from 'next-themes';
-import Switch from '@mui/material/Switch';
-import Tooltip from '@mui/material/Tooltip';
+import {Switch, Tooltip} from '@mui/material';
 import { MdOutlineModeNight, MdOutlineLightMode } from 'react-icons/md';
 
 export default function ModeSwitch() {

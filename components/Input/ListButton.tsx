@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from '@mui/material';
 
 import { List } from '../../models/movies';
 

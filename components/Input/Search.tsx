@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
+import { Autocomplete, TextField } from '@mui/material';
 import { Movie } from '../../models/movies';
 import axios from 'axios';
 
@@ -32,7 +31,7 @@ export default function Search({ movie, setMovie }: Props) {
     getData();
 
     setMovie(data.find((mov) => mov.title === text));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
   return (

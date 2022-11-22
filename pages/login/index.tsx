@@ -1,8 +1,8 @@
-import { useUser, useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import React from 'react';
+import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
 
 export default function Login() {
   const router = useRouter();
@@ -28,6 +28,7 @@ export default function Login() {
         providers={['google', 'github']}
         socialLayout="horizontal"
         theme={theme}
+        localization={{ lang: 'en' }}
       />
     </div>
   );

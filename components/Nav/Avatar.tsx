@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import Avatar from '@mui/material/Avatar';
-import MenuItem from '@mui/material/MenuItem';
-
+import { Button, Avatar, Menu, MenuItem } from '@mui/material';
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-
 import { useRouter } from 'next/router';
 
 export default function AvatarButton() {

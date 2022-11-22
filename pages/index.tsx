@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import Board from './board';
-import Button from '@mui/material/Button';
+import { Button } from '@mui/material';
 
 export default function Homepage() {
   const user = useUser();
@@ -18,13 +18,16 @@ export default function Homepage() {
         dark:from-gray-400 dark:via-gray-600 dark:to-blue-900"
         >
           <div className="flex flex-col h-screen justify-center gap-1">
-            <div className="flex text-4xl justify-center">
-              Keep track of your favorite movies
-            </div>
+            <div className="flex text-4xl justify-center">Keep track of your favorite movies</div>
             <div className="flex text-3xl justify-center">Login to get started</div>
             <div className="flex text-3xl justify-center">
               <Link href="/login">
-                <Button variant="contained" className="hover:text-gray-50 dark:hover:text-gray-400">Login</Button>
+                <Button
+                  variant="contained"
+                  className="bg-blue-600 dark:bg-blue-300 rounded-lg p-3 hover:text-gray-50 dark:hover:text-gray-400"
+                >
+                  Login
+                </Button>
               </Link>
             </div>
           </div>

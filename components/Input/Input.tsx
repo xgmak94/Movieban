@@ -15,7 +15,8 @@ interface props {
 export default function Input({ movie, setMovie, addToLists }: props) {
   const [list, setList] = useState<string>(List.Backlog);
 
-  function handleSubmit() {
+  function handleSubmit(e: any) {
+    e.preventDefault();
     addToLists(list);
   }
 
@@ -27,7 +28,7 @@ export default function Input({ movie, setMovie, addToLists }: props) {
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-center items-center" onKeyDown={handleKeyDown}>
+      <form className="flex justify-center items-center" onSubmit={handleSubmit}>
         <div className="w-full">
           <Search movie={movie} setMovie={setMovie} />
         </div>
@@ -38,12 +39,12 @@ export default function Input({ movie, setMovie, addToLists }: props) {
           <Button
             className="bg-blue-600 dark:bg-blue-300 rounded-lg p-3"
             variant="contained"
-            onClick={handleSubmit}
+            type="submit"
           >
             Add
           </Button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

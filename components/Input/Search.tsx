@@ -34,6 +34,12 @@ export default function Search({ movie, setMovie }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
+  useEffect(() => {
+    if (movie === undefined) {
+      setText('');
+    }
+  }, [movie]);
+
   return (
     <Autocomplete
       options={data}

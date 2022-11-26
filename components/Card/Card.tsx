@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { Movie } from '../../models/movies';
 import MovieInfoModal from './Modal/MovieInfoModal';
 import Button from '@mui/material/Button';
-import { motion } from 'framer-motion';
+import { ListItem } from '@mui/material';
 
 interface Props {
   movie: Movie;
@@ -31,21 +31,9 @@ export default function Card({ movie, index, column, setColumn }: Props) {
           <MovieInfoModal movie={movie} index={index} setModal={setModal} />,
           document.querySelector<HTMLElement>('#portal')!
         )}
-      <motion.div
-        className="flex flex-row justify-between rounded-lg text-black dark:text-white bg-blue-300 w-full p-3 transition hover:scale-105 hover:shadow-lg items-center py-5"
+      <ListItem
+        className="flex flex-row justify-between rounded-lg text-black dark:text-white bg-blue-300 w-full p-3 transition hover:scale-105 hover:shadow-lg items-center"
         onClick={() => setModal((prev) => !prev)}
-        initial={{
-          opacity: 0,
-        }}
-        animate={{
-          opacity: 1,
-        }}
-        exit={{
-          opacity: 0,
-        }}
-        transition={{
-          duration: 2,
-        }}
       >
         <div className="flex flex-start font-medium">{movie.title}</div>
         <Button
@@ -54,9 +42,9 @@ export default function Card({ movie, index, column, setColumn }: Props) {
           bg-blue-400 hover:scale-110"
           onClick={(e) => deleteMovie(e)}
         >
-          <AiFillDelete />
+          <DeleteForeverOutlinedIcon />
         </Button>
-      </motion.div>
+      </ListItem>
     </>
   );
 }

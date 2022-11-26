@@ -24,7 +24,7 @@ export default function Board() {
       .find((element) => element.label === targetList)
       ?.setColumnData((prev) => [movie, ...prev]);
 
-    setMovie({ title: '' });
+    setMovie(undefined);
   }
 
   function handleOnDragEnd(result: DropResult) {
@@ -67,7 +67,7 @@ export default function Board() {
         <div className="flex flex-col p-3">
           <Input movie={movie} setMovie={setMovie} addToLists={addToLists} />
           <DragDropContext onDragEnd={handleOnDragEnd}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 p-3 gap-3">
               {columns.map((col) => (
                 <Column
                   key={col.label}

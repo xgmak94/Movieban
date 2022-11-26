@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function Column({columnData, setColumnData, columnName}: Props) {
-  const [listParent] = useAutoAnimate<HTMLUListElement>();
+  // const [listParent] = useAutoAnimate<HTMLUListElement>();
 
   return (
     <div className="flex flex-col overflow-auto text-center p-3 rounded-lg min-h-screen
@@ -21,7 +21,7 @@ export default function Column({columnData, setColumnData, columnName}: Props) {
     <Droppable droppableId={columnName}>
       {(provided) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
-          <ul className="flex flex-col justify-center m-3" ref={listParent}>
+          <ul className="flex flex-col justify-center m-3">
             {columnData.map((movie, index) => {
               return (
                 <Draggable key={movie.title} draggableId={movie.title} index={index}>

@@ -32,7 +32,7 @@ export default function Card({ movie, index, column, setColumn }: Props) {
           document.querySelector<HTMLElement>('#portal')!
         )}
       <motion.div
-        className="flex flex-row justify-between rounded-md text-black dark:text-white bg-blue-300 w-full p-3 m-3 gap-3 transition hover:scale-105 hover:shadow-lg items-center py-5"
+        className="flex flex-row justify-between rounded-lg text-black dark:text-white bg-blue-300 w-full p-3 transition hover:scale-105 hover:shadow-lg items-center py-5"
         onClick={() => setModal((prev) => !prev)}
         initial={{
           opacity: 0,

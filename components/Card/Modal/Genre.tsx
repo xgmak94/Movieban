@@ -20,7 +20,8 @@ export default function Genre({ movie }: Props) {
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
       );
       let data = await resp.json();
-      setGenres(data.results);
+      setGenres(data.genres);
+
     }
     getGenres();
   }, [movie]);

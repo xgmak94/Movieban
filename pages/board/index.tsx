@@ -3,8 +3,11 @@ import Input from '../../components/Input/Input';
 import { Movie, List } from '../../models/movies';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import Column from '../../components/Column/Column';
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 
 export default function Board() {
+  const user = useUser();
+  const supabaseClient = useSupabaseClient();
   const [movie, setMovie] = useState<Movie>();
 
   const [backlog, setBacklog] = useState<Movie[]>([]);
@@ -17,12 +20,20 @@ export default function Board() {
     { label: 'Watched', columnData: watched, setColumnData: setWatched },
   ];
 
-  function addToLists(targetList: List) {
+  async function addToLists(targetList: List) {
     if (!movie) return;
 
-    columns
-      .find((element) => element.label === targetList)
-      ?.setColumnData((prev) => [movie, ...prev]);
+    let column = columns.find((element) => element.label === targetList);
+    if (column) {
+      column.setColumnData((prev) => [movie, ...prev]);
+
+      if (user !== null) {
+        const { data, error } = await supabaseClient
+          .from('movies')
+          .insert({ movie_status: targetList, user: user.id });
+        console.log(data, error);
+      }
+    }
 
     setMovie(undefined);
   }
@@ -57,6 +68,7 @@ export default function Board() {
     setWatched(watchedClone);
   }
 
+  console.log(user);
   return (
     <>
       <div

@@ -29,8 +29,9 @@ export default function Search({ movie, setMovie }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
+  // TODO: Find out why autocomplete is not being cleared
   useEffect(() => {
-    if (movie === undefined) {
+    if (movie === undefined || movie === null) {
       setText('');
     }
   }, [movie]);

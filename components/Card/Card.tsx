@@ -26,11 +26,10 @@ export default function Card({ movie, index, column, setColumn }: Props) {
 
   return (
     <>
-      {modal &&
-        createPortal(
-          <MovieInfoModal movie={movie} index={index} setModal={setModal} />,
-          document.querySelector<HTMLElement>('#portal')!
-        )}
+      {createPortal(
+        <MovieInfoModal movie={movie} index={index} modal={modal} setModal={setModal} />,
+        document.querySelector<HTMLElement>('#portal')!
+      )}
       <div
         className="flex flex-row justify-between rounded-lg text-black dark:text-white bg-blue-300 w-full p-3 transition hover:scale-105 hover:shadow-lg items-center"
         onClick={() => setModal((prev) => !prev)}

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { List, Movie } from '../../models/movies';
-
 import ListButton from './ListButton';
 import Search from './Search';
-
 import Button from '@mui/material/Button';
 
 interface props {
@@ -15,15 +13,9 @@ interface props {
 export default function Input({ movie, setMovie, addToLists }: props) {
   const [list, setList] = useState<string>(List.Backlog);
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     addToLists(list);
-  }
-
-  function handleKeyDown(e: any) {
-    if (e.key === 'Enter' && e.type === 'keydown' && movie) {
-      console.log('should submit', movie);
-    }
   }
 
   return (

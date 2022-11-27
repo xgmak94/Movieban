@@ -9,8 +9,8 @@ interface Props {
 }
 
 export default function MovieInfoModal({ movie, index, setModal }: Props) {
-  function handleClick(e: any) {
-    if (e.target.id === 'modal-background') {
+  function handleClick(e: React.MouseEvent<HTMLDivElement>) {
+    if ((e.target as HTMLDivElement).id === 'modal-background') {
       setModal((prev) => !prev);
     }
   }

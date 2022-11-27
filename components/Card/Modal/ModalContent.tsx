@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Stats from './Stats';
 import Genre from './Genre';
 
-const imageURL = 'https://image.tmdb.org/t/p/original';
+const imageURL: string = 'https://image.tmdb.org/t/p/original';
 
 interface Props {
   movie: Movie;

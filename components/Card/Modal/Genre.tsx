@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Movie } from '../../../models/movies';
-import {Chip} from '@mui/material';
-import axios from 'axios';
+import { Chip } from '@mui/material';
 
 interface Props {
   movie: Movie;
 }
 
+interface Genre {
+  id: Number;
+  name: string;
+}
+
 export default function Genre({ movie }: Props) {
-  const [genres, setGenres] = useState<any[]>();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [genres, setGenres] = useState<Genre[]>();
 
   useEffect(() => {
     async function getGenres() {
-      let req = await axios.get(
+      let resp = await fetch(
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
       );
-      setGenres(req.data.genres);
-      setLoading(false);
+      let data = await resp.json();
+      setGenres(data.results);
     }
     getGenres();
   }, [movie]);
@@ -25,12 +28,15 @@ export default function Genre({ movie }: Props) {
   return (
     <>
       <div className="flex justify-center gap-3 asp">
-        {loading ? (
+        {genres === undefined ? (
           <div>Loading genres...</div>
         ) : (
           movie.genre_ids?.map((id) => {
-            let info = genres?.find((ele) => ele.id === id);
-            return <Chip key={id} label={info.name} color="primary" />;
+            let info = genres.find((ele) => ele.id === id);
+
+            if (info !== undefined) {
+              return <Chip key={id} label={info.name} color="primary" />;
+            }
           })
         )}
       </div>

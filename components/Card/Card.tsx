@@ -4,7 +4,7 @@ import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined
 import { Movie } from '../../models/movies';
 import MovieInfoModal from './Modal/MovieInfoModal';
 import Button from '@mui/material/Button';
-import { ListItem } from '@mui/material';
+import { Tooltip } from '@mui/material';
 
 interface Props {
   movie: Movie;
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default function Card({ movie, index, column, setColumn }: Props) {
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState<boolean>(false);
 
   function deleteMovie(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -26,25 +26,26 @@ export default function Card({ movie, index, column, setColumn }: Props) {
 
   return (
     <>
-      {modal &&
-        createPortal(
-          <MovieInfoModal movie={movie} index={index} setModal={setModal} />,
-          document.querySelector<HTMLElement>('#portal')!
-        )}
-      <ListItem
+      {createPortal(
+        <MovieInfoModal movie={movie} index={index} modal={modal} setModal={setModal} />,
+        document.querySelector<HTMLElement>('#portal')!
+      )}
+      <div
         className="flex flex-row justify-between rounded-lg text-black dark:text-white bg-blue-300 w-full p-3 transition hover:scale-105 hover:shadow-lg items-center"
         onClick={() => setModal((prev) => !prev)}
       >
         <div className="flex flex-start font-medium">{movie.title}</div>
-        <Button
-          variant="contained"
-          className="text-lg p-1 rounded-lg border border-black dark:border-white text-black dark:text-white
+        <Tooltip title="Delete" arrow>
+          <Button
+            variant="contained"
+            className="text-lg p-1 rounded-lg border border-black dark:border-white text-black dark:text-white
           bg-blue-400 hover:scale-110"
-          onClick={(e) => deleteMovie(e)}
-        >
-          <DeleteForeverOutlinedIcon />
-        </Button>
-      </ListItem>
+            onClick={(e) => deleteMovie(e)}
+          >
+            <DeleteForeverOutlinedIcon />
+          </Button>
+        </Tooltip>
+      </div>
     </>
   );
 }

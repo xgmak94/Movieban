@@ -35,7 +35,7 @@ export default function Column({ columnData, setColumnData, columnName }: Props)
       <Droppable droppableId={columnName}>
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
-            <List className="flex flex-col min-h-screen my-3" ref={listParent}>
+            <List className="flex flex-col min-h-screen my-3 gap-1" ref={listParent}>
               {columnData.map((movie, index) => {
                 return (
                   <Draggable key={movie.title} draggableId={movie.title} index={index}>

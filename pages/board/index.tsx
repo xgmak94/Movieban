@@ -73,7 +73,7 @@ export default function Board() {
         const movieInfo = await supabaseClient.from('movie').insert(movie);
         const userInfo = await supabaseClient
           .from('user_board')
-          .upsert({ movie_status: targetList, user: user.id, movie_id: movie.id });
+          .insert({ movie_status: targetList, user: user.id, movie_id: movie.id });
         console.log(userInfo);
       }
     }
@@ -110,11 +110,13 @@ export default function Board() {
     setWatching(watchingClone);
     setWatched(watchedClone);
     console.log(item);
-    const res = await supabaseClient
+    const deleteInfo = await supabaseClient
       .from('user_board')
       .delete()
-      .eq('movie_id', item.id);
-    console.log(res);
+      .match({ movie_id: item.id, user: user?.id });
+    const insertInfo = await supabaseClient
+      .from('user_board')
+      .insert({ movie_status: destination.droppableId, user: user?.id, movie_id: item.id });
   }
 
   return (

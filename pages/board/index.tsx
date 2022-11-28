@@ -110,7 +110,10 @@ export default function Board() {
     setWatching(watchingClone);
     setWatched(watchedClone);
     console.log(item);
-    const res = await supabaseClient.from('user_board').insert(item);
+    const res = await supabaseClient
+      .from('user_board')
+      .delete()
+      .eq('movie_id', item.id);
     console.log(res);
   }
 

@@ -63,19 +63,17 @@ export default function Board() {
   }, []);
 
   async function addToLists(targetList: List) {
-    if (!movie) return;
+    if (!movie || !user) return;
 
     let column = columns.find((element) => element.label === targetList);
-    if (column) {
-      column.setColumnData((prev) => [movie, ...prev]);
+    if (!column) return;
 
-      if (user !== null) {
-        const movieInfo = await supabaseClient.from('movie').insert(movie);
-        const userInfo = await supabaseClient
-          .from('user_board')
-          .insert({ movie_status: targetList, user: user.id, movie_id: movie.id });
-      }
-    }
+    column.setColumnData((prev) => [movie, ...prev]);
+
+    const movieInfo = await supabaseClient.from('movie').insert(movie);
+    const userInfo = await supabaseClient
+      .from('user_board')
+      .insert({ movie_status: targetList, user: user.id, movie_id: movie.id });
 
     setMovie(undefined);
   }

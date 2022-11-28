@@ -9,7 +9,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 interface Props {
   columnData: Movie[];
   setColumnData: React.Dispatch<React.SetStateAction<Movie[]>>;
-  columnName: string;
+  columnName: String;
 }
 
 export default function Column({ columnData, setColumnData, columnName }: Props) {
@@ -21,18 +21,19 @@ export default function Column({ columnData, setColumnData, columnName }: Props)
     bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100
     dark:bg-gradient-to-b dark:from-gray-900 dark:via-blue-gray-600 dark:to-gray-400"
     >
-      <div className="text-2xl font-semibold capitalize border-b-2 p-3">
-        <div>{columnName}</div>
-        <div className="opacity-50">{columnData.length + ' movies'}</div>
+      <div className="font-semibold py-3">
+        <div className="text-xl">{columnName}</div>
+        <div className="text-lg opacity-50">{columnData.length + ' Movies'}</div>
         <Button
-          className="w-full rounded-lg bg-gray-200 dark:bg-gray-500 text-black dark:text-white"
+          className="w-full rounded-lg bg-gray-300 dark:bg-gray-500 hover:bg-gray-500 dark:hover:bg-gray-300 text-black dark:text-white"
           variant="contained"
         >
           <AddOutlinedIcon />
         </Button>
       </div>
+
       <Divider className="bg-black dark:bg-white" />
-      <Droppable droppableId={columnName}>
+      <Droppable droppableId={columnName as string}>
         {(provided) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             <List className="flex flex-col min-h-screen my-3 gap-1" ref={listParent}>

@@ -8,7 +8,7 @@ interface Props {
 
 interface Genre {
   id: Number;
-  name: string;
+  name: String;
 }
 
 export default function Genre({ movie }: Props) {
@@ -21,7 +21,6 @@ export default function Genre({ movie }: Props) {
       );
       let data = await resp.json();
       setGenres(data.genres);
-
     }
     getGenres();
   }, [movie]);

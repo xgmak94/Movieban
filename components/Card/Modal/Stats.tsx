@@ -40,7 +40,7 @@ export default function Stats({ movie }: StatsProps) {
 
 interface ContentProps {
   content: React.ReactNode;
-  title: string;
+  title: String;
 }
 
 function Content({ content, title }: ContentProps) {

@@ -1,4 +1,4 @@
-import react, { useState } from 'react';
+import { useState } from 'react';
 import type { AppProps } from 'next/app';
 
 import '../styles/globals.css';

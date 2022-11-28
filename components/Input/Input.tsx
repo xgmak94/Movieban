@@ -11,7 +11,7 @@ interface props {
 }
 
 export default function Input({ movie, setMovie, addToLists }: props) {
-  const [list, setList] = useState<string>(List.Backlog);
+  const [list, setList] = useState<String>(List.Backlog);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -29,7 +29,7 @@ export default function Input({ movie, setMovie, addToLists }: props) {
         </div>
         <div>
           <Button
-            className="bg-blue-600 dark:bg-blue-300 rounded-lg p-3"
+            className="bg-blue-600 dark:bg-blue-300 text-black dark:text-white font-semibold rounded-lg p-3"
             variant="contained"
             type="submit"
           >

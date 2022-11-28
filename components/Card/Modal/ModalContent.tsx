@@ -5,7 +5,7 @@ import Stats from './Stats';
 import Genre from './Genre';
 import { DialogContent } from '@mui/material';
 
-const imageURL: string = 'https://image.tmdb.org/t/p/original';
+const imageURL: String = 'https://image.tmdb.org/t/p/original';
 
 interface Props {
   movie: Movie;

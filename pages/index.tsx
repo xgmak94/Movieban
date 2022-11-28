@@ -1,22 +1,22 @@
 import Link from 'next/link';
 
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-import Board from './board';
+import { type User, useUser } from '@supabase/auth-helpers-react';
 import { Button } from '@mui/material';
+import Board from '../components/Board/Board';
 
 export default function Homepage() {
-  const user = useUser();
+  const user: User | null = useUser();
 
   return (
     <>
-      {user ? (
-        <Board />
-      ) : (
-        <div
-          className="text-black dark:text-white
-        bg-gradient-to-tr from-red-200 via-gray-200 to-blue-500
-        dark:from-gray-400 dark:via-gray-600 dark:to-blue-900"
-        >
+      <div
+        className="text-black dark:text-white bg-gradient-to-tr
+        from-red-200 to-blue-500
+        dark:from-gray-600 dark:to-blue-900"
+      >
+        {user ? (
+          <Board />
+        ) : (
           <div className="flex flex-col h-screen justify-center gap-1">
             <div className="flex text-4xl justify-center">Keep track of your favorite movies</div>
             <div className="flex text-3xl justify-center">Login to get started</div>
@@ -24,15 +24,15 @@ export default function Homepage() {
               <Link href="/login">
                 <Button
                   variant="contained"
-                  className="bg-blue-600 dark:bg-blue-300 rounded-lg p-3 hover:text-gray-50 dark:hover:text-gray-400"
+                  className="text-black dark:text-white bg-blue-600 dark:bg-blue-300 rounded-lg p-3 hover:text-gray-50 dark:hover:text-gray-400"
                 >
                   Login
                 </Button>
               </Link>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 }

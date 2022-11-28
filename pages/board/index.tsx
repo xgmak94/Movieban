@@ -74,7 +74,6 @@ export default function Board() {
         const userInfo = await supabaseClient
           .from('user_board')
           .insert({ movie_status: targetList, user: user.id, movie_id: movie.id });
-        console.log(userInfo);
       }
     }
 

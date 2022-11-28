@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '../../components/Input/Input';
 import { Movie, List } from '../../models/movies';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
@@ -20,6 +20,48 @@ export default function Board() {
     { label: 'Watched', columnData: watched, setColumnData: setWatched },
   ];
 
+  // fetch data
+  useEffect(() => {
+    async function loadInitialData() {
+      if (user) {
+        let { data, error } = await supabaseClient
+          .from('user_board')
+          .select('*')
+          .eq('user', user.id);
+
+        if (data) {
+          let movieInfo = [];
+          for (let i = 0; i < data.length; i++) {
+            let res = await supabaseClient.from('movie').select('*').eq('id', data[i].movie_id);
+            if (res.data) {
+              movieInfo.push(res.data[0]);
+            }
+          }
+
+          let backList = [];
+          let watchingList = [];
+          let watchedList = [];
+          for (let i = 0; i < data.length; i++) {
+            if (data[i].movie_status === 'Backlog') {
+              backList.push(movieInfo[i]);
+            } else if (data[i].movie_status === 'Watching') {
+              watchingList.push(movieInfo[i]);
+            } else {
+              watchedList.push(movieInfo[i]);
+            }
+          }
+
+          setBacklog(backList);
+          setWatching(watchingList);
+          setWatched(watchedList);
+        }
+      }
+    }
+
+    loadInitialData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function addToLists(targetList: List) {
     if (!movie) return;
 
@@ -28,17 +70,18 @@ export default function Board() {
       column.setColumnData((prev) => [movie, ...prev]);
 
       if (user !== null) {
-        const { data, error } = await supabaseClient
-          .from('movies')
-          .insert({ movie_status: targetList, user: user.id });
-        console.log(data, error);
+        const movieInfo = await supabaseClient.from('movie').insert(movie);
+        const userInfo = await supabaseClient
+          .from('user_board')
+          .upsert({ movie_status: targetList, user: user.id, movie_id: movie.id });
+        console.log(userInfo);
       }
     }
 
     setMovie(undefined);
   }
 
-  function handleOnDragEnd(result: DropResult) {
+  async function handleOnDragEnd(result: DropResult) {
     const { destination, source } = result;
     if (!destination) return;
 
@@ -66,9 +109,11 @@ export default function Board() {
     setBacklog(backlogClone);
     setWatching(watchingClone);
     setWatched(watchedClone);
+    console.log(item);
+    const res = await supabaseClient.from('user_board').insert(item);
+    console.log(res);
   }
 
-  console.log(user);
   return (
     <>
       <div

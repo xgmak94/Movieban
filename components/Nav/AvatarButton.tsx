@@ -13,7 +13,11 @@ export default function AvatarButton() {
     setAnchorEl(event.currentTarget);
   }
 
-  function handleClose(_e: React.MouseEvent<HTMLLIElement>) {
+  function handleClose(_event: {}, _reason: 'backdropClick' | 'escapeKeyDown') {
+    setAnchorEl(null);
+  }
+
+  function handleProfile(_e: React.MouseEvent<HTMLLIElement>) {
     setAnchorEl(null);
     router.push('/profile');
   }
@@ -50,7 +54,7 @@ export default function AvatarButton() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleProfile}>Profile</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>

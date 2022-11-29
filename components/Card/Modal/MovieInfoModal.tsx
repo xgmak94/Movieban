@@ -1,6 +1,6 @@
-import { Dialog } from '@mui/material';
 import React from 'react';
 import { Movie } from '../../../models/movies';
+import Modal from '../../Modal/Modal';
 import ModalContent from './ModalContent';
 
 interface Props {
@@ -11,13 +11,11 @@ interface Props {
 }
 
 export default function MovieInfoModal({ movie, index, modal, setModal }: Props) {
-  function handleClose(_event: object, _reason: 'backdropClick' | 'escapeKeyDown') {
-    setModal(false);
-  }
-
   return (
-    <Dialog onClose={handleClose} open={modal as boolean}>
-      <ModalContent movie={movie} />
-    </Dialog>
+    <>
+      <Modal modal={modal} setModal={setModal}>
+        <ModalContent movie={movie} />
+      </Modal>
+    </>
   );
 }

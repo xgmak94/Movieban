@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Movie, List } from '../../models/movies';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import Input from '../../components/Input/Input';
-import Column from '../../components/Column/Column';
 import {
   type User,
   type SupabaseClient,
   useSupabaseClient,
   useUser,
 } from '@supabase/auth-helpers-react';
+import { useMediaQuery } from '@mui/material';
+import MultiColumn from './MultiColumn';
+import SingleColumn from './SingleColumn';
+import { DropResult } from 'react-beautiful-dnd';
 
 export default function Board() {
   const user: User | null = useUser();
   const supabaseClient: SupabaseClient = useSupabaseClient();
-  const [movie, setMovie] = useState<Movie>();
+  const mdScreen: boolean = useMediaQuery('(min-width:768px)');
 
   const [backlog, setBacklog] = useState<Movie[]>([]);
   const [watching, setWatching] = useState<Movie[]>([]);
@@ -30,7 +31,11 @@ export default function Board() {
     async function loadInitialData() {
       if (!user) return;
 
-      let { data } = await supabaseClient.from('user_board').select('*').eq('user', user.id);
+      let { data } = await supabaseClient
+        .from('user_board')
+        .select('*')
+        .eq('user', user.id)
+        .order('created_at', { ascending: false });
 
       if (!data) return;
 
@@ -65,22 +70,6 @@ export default function Board() {
     loadInitialData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  async function addToLists(targetList: List) {
-    if (!movie || !user) return;
-
-    let column = columns.find((element) => element.label === targetList);
-    if (!column) return;
-
-    column.setColumnData((prev) => [movie, ...prev]);
-
-    const movieInfo = await supabaseClient.from('movie').insert(movie);
-    const userInfo = await supabaseClient
-      .from('user_board')
-      .insert({ movie_status: targetList, user: user.id, movie_id: movie.id });
-
-    setMovie(undefined);
-  }
 
   async function handleOnDragEnd(result: DropResult) {
     const { destination, source } = result;
@@ -119,21 +108,11 @@ export default function Board() {
 
   return (
     <>
-      <div className="flex flex-col p-3">
-        {/* <Input movie={movie} setMovie={setMovie} addToLists={addToLists} /> */}
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <div className="grid grid-cols-1 md:grid-cols-3 p-3 gap-3">
-            {columns.map((col) => (
-              <Column
-                key={col.label}
-                columnData={col.columnData}
-                setColumnData={col.setColumnData}
-                columnName={col.label}
-              />
-            ))}
-          </div>
-        </DragDropContext>
-      </div>
+      {mdScreen ? (
+        <MultiColumn columns={columns} handleOnDragEnd={handleOnDragEnd} />
+      ) : (
+        <SingleColumn columns={columns} handleOnDragEnd={handleOnDragEnd} />
+      )}
     </>
   );
 }

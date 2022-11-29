@@ -45,15 +45,15 @@ export default function Card({ movie, index, column, setColumn }: Props) {
         document.querySelector<HTMLElement>('#portal')!
       )}
       <div
-        className="flex flex-row justify-between rounded-lg text-black dark:text-white bg-blue-300 w-full p-3 transition hover:scale-105 hover:shadow-lg items-center"
+        className="flex flex-row justify-between rounded-lg text-black dark:text-white bg-blue-300 w-full p-3 transition hover:scale-105 hover:shadow-lg items-center cursor-pointer"
         onClick={() => setModal((prev) => !prev)}
       >
-        <div className="flex flex-start font-medium">{movie.title}</div>
+        <div className="font-semibold">{movie.title}</div>
         <Tooltip title="Delete" arrow>
           <Button
             variant="contained"
             className="text-lg p-1 rounded-lg border border-black dark:border-white text-black dark:text-white
-          bg-blue-400 hover:scale-110"
+            bg-blue-400 hover:scale-110"
             onClick={(e) => deleteMovie(e)}
           >
             <DeleteForeverOutlinedIcon />

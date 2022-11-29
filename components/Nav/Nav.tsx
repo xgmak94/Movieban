@@ -16,9 +16,16 @@ export default function Navbar() {
           </Button>
         </Link>
       </div>
-      <div className="container flex justify-end gap-3">
+      <div className="container flex items-center justify-end gap-3">
         {user ? (
-          <AvatarButton />
+          <>
+            <Link href="/search">
+              <Button className="text-lg capitalize hover:text-gray-50 dark:hover:text-gray-400">
+                Search
+              </Button>
+            </Link>
+            <AvatarButton />
+          </>
         ) : (
           <Link href="/login">
             <Button className="hover:text-gray-50 dark:hover:text-gray-400">Login</Button>

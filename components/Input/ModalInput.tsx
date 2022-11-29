@@ -16,7 +16,7 @@ import {
   useUser,
 } from '@supabase/auth-helpers-react';
 import Modal from '../Modal/Modal';
-import ModalContent from '../Card/Modal/ModalContent';
+import MovieInfo from '../Movie/MovieInfo';
 
 // modal form version of adding a movie to list
 interface Props {
@@ -57,7 +57,7 @@ export default function ModalInput({
         <Button variant="outlined" className="bg-white dark:bg-black" onClick={handleSave}>
           Add
         </Button>
-        {movie && <ModalContent movie={movie} />}
+        {movie && <MovieInfo movie={movie} />}
       </Modal>
     </>
   );

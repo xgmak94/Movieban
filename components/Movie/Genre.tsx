@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Movie } from '../../../models/movies';
-import { Chip } from '@mui/material';
+import { Movie } from '../../models/movies';
+import { Chip, CircularProgress } from '@mui/material';
 
 interface Props {
   movie: Movie;
@@ -29,7 +29,7 @@ export default function Genre({ movie }: Props) {
     <>
       <div className="flex justify-center gap-3 asp">
         {genres === undefined ? (
-          <div>Loading genres...</div>
+          <CircularProgress />
         ) : (
           movie.genre_ids?.map((id) => {
             let info = genres.find((ele) => ele.id === id);

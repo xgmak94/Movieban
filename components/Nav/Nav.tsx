@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import ModeSwitch from './ModeSwitch';
-import Avatar from './Avatar';
-import { useUser } from '@supabase/auth-helpers-react';
+import AvatarButton from './AvatarButton';
+import { type User, useUser } from '@supabase/auth-helpers-react';
 import { Button } from '@mui/material';
 
 export default function Navbar() {
-  const user = useUser();
+  const user: User | null = useUser();
 
   return (
     <nav className="flex flex-row items-center p-2 text-black dark:text-white max-w-screen bg-slate-200 dark:bg-slate-900">
@@ -18,7 +18,7 @@ export default function Navbar() {
       </div>
       <div className="container flex justify-end gap-3">
         {user ? (
-          <Avatar />
+          <AvatarButton />
         ) : (
           <Link href="/login">
             <Button className="hover:text-gray-50 dark:hover:text-gray-400">Login</Button>

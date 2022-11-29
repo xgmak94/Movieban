@@ -1,20 +1,26 @@
 import React, { useState } from 'react';
 import { Button, Avatar, Menu, MenuItem } from '@mui/material';
-import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
-import { useRouter } from 'next/router';
+import { type User, useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
+import { type NextRouter, useRouter } from 'next/router';
 
 export default function AvatarButton() {
-  const router = useRouter();
-  const user = useUser();
+  const router: NextRouter = useRouter();
+  const user: User | null = useUser();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
+  function handleOpen(event: React.MouseEvent<HTMLButtonElement>) {
     setAnchorEl(event.currentTarget);
   }
 
-  function handleClose() {
+  function handleClose(_e: React.MouseEvent<HTMLLIElement>) {
     setAnchorEl(null);
+    router.push('/profile');
+  }
+
+  function handleLogout(_e: React.MouseEvent<HTMLLIElement>) {
+    setAnchorEl(null);
+    supabaseClient.auth.signOut();
   }
 
   const supabaseClient = useSupabaseClient();
@@ -31,7 +37,7 @@ export default function AvatarButton() {
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
+        onClick={handleOpen}
       >
         <Avatar alt="avatar" src={user?.user_metadata.avatar_url} />
       </Button>
@@ -44,22 +50,8 @@ export default function AvatarButton() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            router.push('/profile');
-          }}
-        >
-          Profile
-        </MenuItem>
-        <MenuItem
-          onClick={(e) => {
-            handleClose();
-            supabaseClient.auth.signOut();
-          }}
-        >
-          Logout
-        </MenuItem>
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
   );

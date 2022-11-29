@@ -10,7 +10,7 @@ interface StatsProps {
 
 export default function Stats({ movie }: StatsProps) {
   return (
-    <div className="flex flex-row justify-around text-center gap-3">
+    <div className="min-w-[25vw] flex flex-row justify-around text-center gap-3">
       <div className="font-bold text-2xl text-center">{movie.title}</div>
       <Content
         title="rating"
@@ -40,7 +40,7 @@ export default function Stats({ movie }: StatsProps) {
 
 interface ContentProps {
   content: React.ReactNode;
-  title: string;
+  title: String;
 }
 
 function Content({ content, title }: ContentProps) {

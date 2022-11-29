@@ -4,8 +4,8 @@ import { InputLabel, MenuItem, FormControl, Select, SelectChangeEvent } from '@m
 import { List } from '../../models/movies';
 
 interface Props {
-  list: string;
-  setList: React.Dispatch<React.SetStateAction<string>>;
+  list: String;
+  setList: React.Dispatch<React.SetStateAction<String>>;
 }
 export default function BasicSelect({ list, setList }: Props) {
   const handleChange = (event: SelectChangeEvent) => {
@@ -19,7 +19,7 @@ export default function BasicSelect({ list, setList }: Props) {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={list}
+          value={list as string}
           label="list"
           onChange={handleChange}
         >

@@ -1,15 +1,16 @@
 import React from 'react';
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import { type NextRouter, useRouter } from 'next/router';
+import { type SupabaseClient, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { Auth, ThemeSupa } from '@supabase/auth-ui-react';
 import { useTheme } from 'next-themes';
-import { useRouter } from 'next/router';
+import type { UseThemeProps } from 'next-themes/dist/types';
 
 export default function Login() {
-  const router = useRouter();
-  const { theme } = useTheme();
-  const supabaseClient = useSupabaseClient();
+  const router: NextRouter = useRouter();
+  const { theme, setTheme }: UseThemeProps = useTheme();
+  const supabaseClient: SupabaseClient = useSupabaseClient();
 
-  supabaseClient.auth.onAuthStateChange(async (event) => {
+  supabaseClient.auth.onAuthStateChange(async (event: String) => {
     if (event === 'SIGNED_IN') {
       router.push('/board');
     }
@@ -17,8 +18,8 @@ export default function Login() {
 
   return (
     <div
-      className="grid place-items-center h-screen text-black dark:text-white
-    bg-gradient-to-tr from-red-200 via-gray-200 to-blue-500
+      className="min-h-screen p-3 text-black dark:text-white bg-gradient-to-tr
+    from-red-200 via-gray-200 to-blue-500
     dark:from-gray-400 dark:via-gray-600 dark:to-blue-900"
     >
       <Auth
@@ -26,7 +27,7 @@ export default function Login() {
         appearance={{ theme: ThemeSupa }}
         supabaseClient={supabaseClient}
         providers={['google', 'github']}
-        socialLayout="horizontal"
+        socialLayout="vertical"
         theme={theme}
         localization={{ lang: 'en' }}
       />

@@ -5,23 +5,37 @@ import { Movie } from '../../models/movies';
 import MovieInfoModal from './Modal/MovieInfoModal';
 import Button from '@mui/material/Button';
 import { Tooltip } from '@mui/material';
+import {
+  type User,
+  type SupabaseClient,
+  useSupabaseClient,
+  useUser,
+} from '@supabase/auth-helpers-react';
 
 interface Props {
   movie: Movie;
-  index: number;
+  index: Number;
   column: Movie[];
   setColumn: React.Dispatch<React.SetStateAction<Movie[]>>;
 }
 
 export default function Card({ movie, index, column, setColumn }: Props) {
-  const [modal, setModal] = useState<boolean>(false);
+  const supabaseClient: SupabaseClient = useSupabaseClient();
+  const user: User | null = useUser();
 
-  function deleteMovie(e: React.MouseEvent<HTMLButtonElement>) {
+  const [modal, setModal] = useState<Boolean>(false);
+
+  async function deleteMovie(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
 
     setColumn((prev: Movie[]) => {
-      return [...prev.slice(0, index), ...prev.slice(index + 1)];
+      return [...prev.slice(0, index as number), ...prev.slice((index as number) + 1)];
     });
+
+    const res = await supabaseClient
+      .from('user_board')
+      .delete()
+      .match({ movie_id: movie.id, user: user?.id });
   }
 
   return (

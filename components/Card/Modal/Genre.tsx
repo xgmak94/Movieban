@@ -8,7 +8,7 @@ interface Props {
 
 interface Genre {
   id: Number;
-  name: string;
+  name: String;
 }
 
 export default function Genre({ movie }: Props) {
@@ -16,12 +16,11 @@ export default function Genre({ movie }: Props) {
 
   useEffect(() => {
     async function getGenres() {
-      let resp = await fetch(
+      let resp : Response = await fetch(
         `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.NEXT_PUBLIC_API_KEY}`
       );
       let data = await resp.json();
       setGenres(data.genres);
-
     }
     getGenres();
   }, [movie]);

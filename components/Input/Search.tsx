@@ -37,30 +37,32 @@ export default function Search({ movie, setMovie }: Props) {
   }, [movie]);
 
   return (
-    <Autocomplete
-      options={data}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          label="Movie"
-          placeholder="Search for a movie..."
-          InputProps={{ ...params.InputProps, type: 'search' }}
-        />
-      )}
-      renderOption={(props, option) => {
-        return (
-          <>
-            <li className="flex w-full justify-between" {...props} key={option.id}>
-              <div className="justify-start text-green-600 font-semibold">{option.title}</div>
-              <div className="justify-end text-gray-300">{option.release_date?.toString()}</div>
-            </li>
-          </>
-        );
-      }}
-      inputValue={text}
-      onInputChange={(event, newInputValue) => setText(newInputValue)}
-      isOptionEqualToValue={(option, val) => option.title === val.title}
-      getOptionLabel={(option) => option.title}
-    />
+    <div className="p-3">
+      <Autocomplete
+        options={data}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Movie"
+            placeholder="Search for a movie..."
+            InputProps={{ ...params.InputProps, type: 'search' }}
+          />
+        )}
+        renderOption={(props, option) => {
+          return (
+            <>
+              <li className="flex w-full justify-between" {...props} key={option.id}>
+                <div className="justify-start text-green-600 font-semibold">{option.title}</div>
+                <div className="justify-end text-gray-300">{option.release_date?.toString()}</div>
+              </li>
+            </>
+          );
+        }}
+        inputValue={text}
+        onInputChange={(event, newInputValue) => setText(newInputValue)}
+        isOptionEqualToValue={(option, val) => option.title === val.title}
+        getOptionLabel={(option) => option.title}
+      />
+    </div>
   );
 }

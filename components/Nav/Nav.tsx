@@ -17,15 +17,13 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="container flex items-center justify-end gap-3">
+        <Link href="/search">
+          <Button className="text-lg capitalize hover:text-gray-50 dark:hover:text-gray-400">
+            Search
+          </Button>
+        </Link>
         {user ? (
-          <>
-            <Link href="/search">
-              <Button className="text-lg capitalize hover:text-gray-50 dark:hover:text-gray-400">
-                Search
-              </Button>
-            </Link>
-            <AvatarButton />
-          </>
+          <AvatarButton />
         ) : (
           <Link href="/login">
             <Button className="hover:text-gray-50 dark:hover:text-gray-400">Login</Button>

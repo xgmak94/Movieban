@@ -3,7 +3,7 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { Movie } from '../../models/movies';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import Card from '../Card/Card';
-import { Button, List, Divider } from '@mui/material';
+import { List, Divider } from '@mui/material';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ModalInput from '../Input/ModalInput';
 import { createPortal } from 'react-dom';
@@ -42,13 +42,12 @@ export default function Column({ columnData, setColumnData, columnName }: Props)
         <div className="font-semibold py-3">
           <div className="text-xl">{columnName}</div>
           <div className="text-lg opacity-50">{columnData.length + ' Movies'}</div>
-          <Button
+          <button
             className="w-full rounded-lg bg-gray-300 dark:bg-gray-500 hover:bg-gray-500 dark:hover:bg-gray-300 text-black dark:text-white"
-            variant="contained"
             onClick={handleModal}
           >
             <AddOutlinedIcon />
-          </Button>
+          </button>
         </div>
 
         <Divider className="bg-black dark:bg-white" />

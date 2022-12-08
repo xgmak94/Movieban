@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import { Movie } from '../../models/movies';
 import MovieInfoModal from './Modal/MovieInfoModal';
-import Button from '@mui/material/Button';
 import { Tooltip } from '@mui/material';
 import {
   type User,
@@ -51,14 +50,13 @@ export default function Card({ movie, index, column, setColumn }: Props) {
         <div className="font-semibold">{movie.title}</div>
         <div>
           <Tooltip title="Delete" arrow>
-            <Button
-              variant="contained"
-              className="text-lg p-1 rounded-lg border border-black dark:border-white text-black dark:text-white
+            <button
+              className="text-lg py-1 px-3 rounded-lg border border-black dark:border-white text-black dark:text-white
             bg-blue-400 hover:scale-110"
               onClick={(e) => deleteMovie(e)}
             >
               <DeleteForeverOutlinedIcon />
-            </Button>
+            </button>
           </Tooltip>
         </div>
       </div>

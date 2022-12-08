@@ -102,7 +102,7 @@ export default function Board() {
 
     const updateInfo = await supabaseClient
       .from('user_board')
-      .update({ movie_status: destination.droppableId })
+      .update({ movie_status: destination.droppableId, created_at: new Date() })
       .match({ user: user?.id, movie_id: item.id });
   }
 

@@ -10,7 +10,7 @@ export default function SearchPage({}: Props) {
 
   return (
     <div
-      className="min-h-screen p-3 text-black dark:text-white bg-gradient-to-tr
+      className="min-h-screen p-3 gap-3 text-black dark:text-white bg-gradient-to-tr
   from-red-200 via-gray-200 to-blue-500
   dark:from-gray-400 dark:via-gray-600 dark:to-blue-900"
     >

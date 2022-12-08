@@ -24,7 +24,10 @@ export default function Stats({ movie }: StatsProps) {
           </>
         }
       />
-      <Content title="release date" content={<div>{movie.release_date?.toString()}</div>} />
+      <Content
+        title="release date"
+        content={<div>{new Date(movie.release_date as Date).toLocaleDateString('en-US')}</div>}
+      />
       <Content
         title="popularity"
         content={

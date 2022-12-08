@@ -49,16 +49,18 @@ export default function Card({ movie, index, column, setColumn }: Props) {
         onClick={() => setModal((prev) => !prev)}
       >
         <div className="font-semibold">{movie.title}</div>
-        <Tooltip title="Delete" arrow>
-          <Button
-            variant="contained"
-            className="text-lg p-1 rounded-lg border border-black dark:border-white text-black dark:text-white
+        <div>
+          <Tooltip title="Delete" arrow>
+            <Button
+              variant="contained"
+              className="text-lg p-1 rounded-lg border border-black dark:border-white text-black dark:text-white
             bg-blue-400 hover:scale-110"
-            onClick={(e) => deleteMovie(e)}
-          >
-            <DeleteForeverOutlinedIcon />
-          </Button>
-        </Tooltip>
+              onClick={(e) => deleteMovie(e)}
+            >
+              <DeleteForeverOutlinedIcon />
+            </Button>
+          </Tooltip>
+        </div>
       </div>
     </>
   );

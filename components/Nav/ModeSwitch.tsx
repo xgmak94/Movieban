@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from 'next-themes';
-import { Switch, Tooltip } from '@mui/material';
+import { FormControlLabel, Switch, Tooltip } from '@mui/material';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import { UseThemeProps } from 'next-themes/dist/types';
@@ -15,10 +15,12 @@ export default function ModeSwitch() {
   return (
     <>
       <div className="flex flex-row items-center">
-        <Tooltip title={theme === 'dark' ? 'Dark mode' : 'Light mode'}>
-          <Switch checked={theme === 'dark'} onChange={handleToggle} />
+        <Tooltip title={theme === 'dark' ? 'Dark mode' : 'Light mode'} arrow>
+          <FormControlLabel
+            control={<Switch checked={theme === 'dark'} onChange={handleToggle} />}
+            label={theme === 'dark' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
+          />
         </Tooltip>
-        {theme === 'dark' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
       </div>
     </>
   );

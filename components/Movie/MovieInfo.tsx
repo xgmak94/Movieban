@@ -11,21 +11,23 @@ interface Props {
 }
 
 export default function MovieInfo({ movie }: Props) {
+
   return (
-    <div className="w-full flex flex-col justify-center gap-3">
-      <div className="flex flex-col justify-center">
+    <div className="w-full flex flex-col justify-center gap-1 overflow-auto">
+      <div className="grid grid-cols-2 gap-1 justify-center place-items-center">
         <Image
           src={`${imageURL}${movie.poster_path}`}
           className="self-center object-contain w-auto h-auto"
           alt="poster"
           width="200"
           height="200"
-          placeholder='blur'
+          placeholder="blur"
           blurDataURL={`${imageURL}${movie.poster_path}`}
         />
+        <Genre movie={movie} />
       </div>
-      <Genre movie={movie} />
       <Stats movie={movie} />
+      <div>{movie.overview}</div>
     </div>
   );
 }

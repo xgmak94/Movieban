@@ -27,7 +27,7 @@ export default function Genre({ movie }: Props) {
 
   return (
     <>
-      <div className="flex justify-center gap-3 asp">
+      <div className="flex flex-col justify-center gap-3">
         {genres === undefined ? (
           <CircularProgress />
         ) : (

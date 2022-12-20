@@ -1,12 +1,4 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from '@mui/material';
 import Search from './Search';
 import { Movie } from '../../models/movies';
 import {
@@ -34,7 +26,7 @@ export default function ModalInput({
   columnData,
   setColumnData,
 }: Props) {
-  const user: User | null = useUser();
+  const user: User = useUser() as User;
   const [movie, setMovie] = useState<Movie>();
   const supabaseClient: SupabaseClient = useSupabaseClient();
 
@@ -43,20 +35,34 @@ export default function ModalInput({
       const movieInfo = await supabaseClient.from('movie').insert(movie);
       const userInfo = await supabaseClient
         .from('user_board')
-        .insert({ movie_status: columnName, user: user?.id, movie_id: movie.id });
+        .insert({
+          movie_status: columnName,
+          user: user.id,
+          movie_id: movie.id,
+        });
       setModal(false);
       setColumnData((prev) => [movie, ...prev]);
+      setMovie(undefined);
     }
   }
 
   return (
     <>
-      <Modal modal={modal} setModal={setModal}>
-        <div className="text-4xl font-semibold self-center">{columnName}</div>
-        <Search movie={movie} setMovie={setMovie} />
-        <Button variant="outlined" className="bg-white dark:bg-black" onClick={handleSave}>
+      <Modal
+        modal={modal}
+        setModal={setModal}
+      >
+        <div className='text-4xl font-semibold self-center'>{columnName}</div>
+        <Search
+          movie={movie}
+          setMovie={setMovie}
+        />
+        <button
+          className='bg-white dark:bg-black'
+          onClick={handleSave}
+        >
           Add
-        </Button>
+        </button>
         {movie && <MovieInfo movie={movie} />}
       </Modal>
     </>

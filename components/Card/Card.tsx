@@ -47,7 +47,7 @@ export default function Card({ movie, index, column, setColumn }: Props) {
         className="flex flex-row justify-between rounded-lg text-black dark:text-white bg-blue-300 w-full p-3 transition hover:scale-105 hover:shadow-lg items-center cursor-pointer"
         onClick={() => setModal((prev) => !prev)}
       >
-        <div className="font-semibold">{movie.title}</div>
+        <div className="flex-start font-semibold">{movie.title}</div>
         <div>
           <Tooltip title="Delete" arrow>
             <button

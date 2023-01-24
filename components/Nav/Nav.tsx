@@ -7,15 +7,17 @@ export default function Navbar() {
   const user: User | null = useUser();
 
   return (
-    <nav className="flex flex-row items-center p-2 text-black dark:text-white max-w-screen bg-slate-200 dark:bg-slate-900">
+    <nav className="flex flex-row items-center p-2 text-black dark:text-white max-w-screen
+    bg-gradient-to-r from-rose-300 via-violet-600 to-pink-300
+    dark:bg-gradient-to-l dark:from-gray-900 dark:to-gray-600">
       <div className="container flex justify-start gap-3">
         <Link href="/">
-          <button className="text-xl text-black dark:text-white font-semibold capitalize">
+          <button className="nav-item font-bold">
             Movie Board
           </button>
         </Link>
         <Link href="/search">
-          <button className="text-lg text-black dark:text-white capitalize hover:text-gray-50 dark:hover:text-gray-400">
+          <button className="nav-item">
             Search
           </button>
         </Link>
@@ -25,7 +27,7 @@ export default function Navbar() {
           <AvatarButton />
         ) : (
           <Link href="/login">
-            <button className="hover:text-gray-50 dark:hover:text-gray-400">Login</button>
+            <button className="nav-item">Login</button>
           </Link>
         )}
         <ModeSwitch />

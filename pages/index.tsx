@@ -21,7 +21,7 @@ export default function Homepage() {
             <div className="flex text-3xl justify-center">Login to get started</div>
             <div className="flex text-3xl justify-center">
               <Link href="/login">
-                <button className="text-black dark:text-white bg-blue-600 dark:bg-blue-300 rounded-lg p-3 hover:text-gray-50 dark:hover:text-gray-400">
+                <button className="btn">
                   Login
                 </button>
               </Link>

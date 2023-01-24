@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function Search({ movie, setMovie }: Props) {
-  const [text, setText] = useState<string>('');
+  const [text, setText] = useState<String>('');
   const [data, setData] = useState<Movie[]>([]);
 
   useEffect(() => {
@@ -51,14 +51,13 @@ export default function Search({ movie, setMovie }: Props) {
         renderOption={(props, option) => {
           return (
             <>
-              <li className="flex w-full justify-between" {...props} key={option.id}>
-                <div className="justify-start text-green-600 font-semibold">{option.title}</div>
-                <div className="justify-end text-gray-300">{option.release_date?.toString()}</div>
+              <li {...props} key={option.id}>
+                <div>{option.title}</div>
               </li>
             </>
           );
         }}
-        inputValue={text}
+        inputValue={text as string}
         onInputChange={(event, newInputValue) => setText(newInputValue)}
         isOptionEqualToValue={(option, val) => option.title === val.title}
         getOptionLabel={(option) => option.title}

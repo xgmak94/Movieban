@@ -13,6 +13,7 @@ export default function Modal({ modal, setModal, children }: Props) {
     }
   }
 
+
   if (modal === false) return null;
   return (
     <>
@@ -24,7 +25,8 @@ export default function Modal({ modal, setModal, children }: Props) {
         <div
           className="flex flex-col w-[90vw] h-[90vh] p-5 rounded-lg gap-1 space-evenly
             bg-gradient-to-r from-indigo-200 via-red-200 to-yellow-100
-          dark:from-gray-300 dark:via-gray-600 dark:to-blue-900"
+          dark:from-gray-300 dark:via-gray-600 dark:to-blue-900
+          border border-black"
         >
           {children}
         </div>

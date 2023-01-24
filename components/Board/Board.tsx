@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import { Movie, List } from '../../models/movies';
 import {
   type User,
@@ -7,14 +8,16 @@ import {
   useUser,
 } from '@supabase/auth-helpers-react';
 import { useMediaQuery } from '@mui/material';
-import MultiColumn from './MultiColumn';
-import SingleColumn from './SingleColumn';
 import { DropResult } from 'react-beautiful-dnd';
+import axios from 'axios';
+
+const SingleColumn = dynamic(() => import('./SingleColumn'));
+const MultiColumn = dynamic(() => import('./MultiColumn'));
 
 export default function Board() {
-  const user: User | null = useUser();
+  const user: User = useUser() as User;
   const supabaseClient: SupabaseClient = useSupabaseClient();
-  const mdScreen: boolean = useMediaQuery('(min-width:768px)');
+  const mdScreen: Boolean = useMediaQuery('(min-width:768px)');
 
   const [backlog, setBacklog] = useState<Movie[]>([]);
   const [watching, setWatching] = useState<Movie[]>([]);
@@ -26,36 +29,27 @@ export default function Board() {
     { label: 'Watched', columnData: watched, setColumnData: setWatched },
   ];
 
-  // fetch data
   useEffect(() => {
-    async function loadInitialData() {
-      if (!user) return;
-
-      let { data } = await supabaseClient
-        .from('user_board')
-        .select('*')
-        .eq('user', user.id)
-        .order('created_at', { ascending: false });
-
-      if (!data) return;
+    async function loadData() {
+      let user_info = await axios.get('/api/user', {
+        params: { user: user.id },
+      });
 
       let movieInfo = [];
-
-      // loop through each user entry, get accompanying movie info
-      for (let i = 0; i < data.length; i++) {
-        let res = await supabaseClient.from('movie').select('*').eq('id', data[i].movie_id);
-        if (res.data) {
-          movieInfo.push(res.data[0]);
-        }
+      for (let i = 0; i < user_info.data.length; i++) {
+        let res = await axios.get('/api/movie', {
+          params: { id: user_info.data[i].movie_id },
+        });
+        movieInfo.push(res.data);
       }
 
-      let backList = [];
-      let watchingList = [];
-      let watchedList = [];
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].movie_status === 'Backlog') {
+      let backList: Movie[] = [];
+      let watchingList: Movie[] = [];
+      let watchedList: Movie[] = [];
+      for (let i = 0; i < user_info.data.length; i++) {
+        if (user_info.data[i].movie_status === 'Backlog') {
           backList.push(movieInfo[i]);
-        } else if (data[i].movie_status === 'Watching') {
+        } else if (user_info.data[i].movie_status === 'Watching') {
           watchingList.push(movieInfo[i]);
         } else {
           watchedList.push(movieInfo[i]);
@@ -66,10 +60,8 @@ export default function Board() {
       setWatching(watchingList);
       setWatched(watchedList);
     }
-
-    loadInitialData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    loadData();
+  }, [user]);
 
   async function handleOnDragEnd(result: DropResult) {
     const { destination, source } = result;
@@ -109,9 +101,15 @@ export default function Board() {
   return (
     <>
       {mdScreen ? (
-        <MultiColumn columns={columns} handleOnDragEnd={handleOnDragEnd} />
+        <MultiColumn
+          columns={columns}
+          handleOnDragEnd={handleOnDragEnd}
+        />
       ) : (
-        <SingleColumn columns={columns} handleOnDragEnd={handleOnDragEnd} />
+        <SingleColumn
+          columns={columns}
+          handleOnDragEnd={handleOnDragEnd}
+        />
       )}
     </>
   );

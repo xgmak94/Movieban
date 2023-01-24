@@ -12,7 +12,7 @@ export default function Login() {
 
   supabaseClient.auth.onAuthStateChange(async (event: String) => {
     if (event === 'SIGNED_IN') {
-      router.push('/board');
+      router.push('/');
     }
   });
 

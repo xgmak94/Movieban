@@ -32,14 +32,17 @@ export default function ModalInput({
 
   async function handleSave(e: React.MouseEvent<HTMLButtonElement>) {
     if (movie) {
-      const movieInfo = await supabaseClient.from('movie').insert(movie);
-      const userInfo = await supabaseClient
-        .from('user_board')
-        .insert({
-          movie_status: columnName,
-          user: user.id,
-          movie_id: movie.id,
+      await supabaseClient
+        .from('movie')
+        .upsert(movie)
+        .then(async () => {
+          await supabaseClient.from('user_board').insert({
+            movie_status: columnName,
+            user: user.id,
+            movie_id: movie.id,
+          });
         });
+
       setModal(false);
       setColumnData((prev) => [movie, ...prev]);
       setMovie(undefined);

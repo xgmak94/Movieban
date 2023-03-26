@@ -22,6 +22,7 @@ export default function Genre({ movie }: Props) {
       let data = await resp.json();
       setGenres(data.genres);
     }
+
     getGenres();
   }, [movie]);
 

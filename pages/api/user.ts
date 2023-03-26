@@ -19,6 +19,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function handleGet(req: NextApiRequest, res: NextApiResponse) {
+  console.log(req.query);
   const user_board = await prisma.user_board.findMany({
     where: {
       user: req.query.user as string,

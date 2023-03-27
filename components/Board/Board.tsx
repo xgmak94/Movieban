@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Movie, List } from '../../models/movies';
@@ -9,7 +10,6 @@ import {
 } from '@supabase/auth-helpers-react';
 import { useMediaQuery } from '@mui/material';
 import { DropResult } from 'react-beautiful-dnd';
-import axios from 'axios';
 
 const SingleColumn = dynamic(() => import('./SingleColumn'));
 const MultiColumn = dynamic(() => import('./MultiColumn'));
@@ -31,16 +31,22 @@ export default function Board() {
 
   useEffect(() => {
     async function loadData() {
-      let user_info = await axios.get('/api/user', {
-        params: { user: user.id },
-      });
+      const user_info = await supabaseClient
+        .from('user_board')
+        .select()
+        .eq('user', user.id);
+
+      if (user_info.data == null) return;
 
       let movieInfo = [];
       for (let i = 0; i < user_info.data.length; i++) {
-        let res = await axios.get('/api/movie', {
-          params: { id: user_info.data[i].movie_id },
-        });
-        movieInfo.push(res.data);
+        let resp = await supabaseClient
+          .from('movie')
+          .select()
+          .eq('id', user_info.data[i].movie_id)
+          .single();
+
+        movieInfo.push(resp.data);
       }
 
       let backList: Movie[] = [];

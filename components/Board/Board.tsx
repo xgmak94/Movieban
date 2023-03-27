@@ -48,7 +48,6 @@ export default function Board() {
 
         movieInfo.push(resp.data);
       }
-
       let backList: Movie[] = [];
       let watchingList: Movie[] = [];
       let watchedList: Movie[] = [];

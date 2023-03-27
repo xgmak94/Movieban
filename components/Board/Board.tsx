@@ -31,33 +31,34 @@ export default function Board() {
 
   useEffect(() => {
     async function loadData() {
-      const user_info = await supabaseClient
+      const { data, error } = await supabaseClient
         .from('user_board')
         .select()
         .eq('user', user.id);
 
-      if (user_info.data == null) return;
+      if (data === null) return;
 
       let movieInfo = [];
-      for (let i = 0; i < user_info.data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         let resp = await supabaseClient
           .from('movie')
           .select()
-          .eq('id', user_info.data[i].movie_id)
+          .eq('id', data[i].movie_id)
           .single();
 
         movieInfo.push(resp.data);
       }
+
       let backList: Movie[] = [];
       let watchingList: Movie[] = [];
       let watchedList: Movie[] = [];
-      for (let i = 0; i < user_info.data.length; i++) {
-        if (user_info.data[i].movie_status === 'Backlog') {
-          backList.push(movieInfo[i]);
-        } else if (user_info.data[i].movie_status === 'Watching') {
-          watchingList.push(movieInfo[i]);
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].movie_status === 'Backlog') {
+          backList.push(movieInfo[i] as Movie);
+        } else if (data[i].movie_status === 'Watching') {
+          watchingList.push(movieInfo[i] as Movie);
         } else {
-          watchedList.push(movieInfo[i]);
+          watchedList.push(movieInfo[i] as Movie);
         }
       }
 
